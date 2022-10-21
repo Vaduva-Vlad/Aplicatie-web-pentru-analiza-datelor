@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { PiechartComponent } from './piechart/piechart/piechart.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,10 @@ import { PiechartComponent } from './piechart/piechart/piechart.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MatSliderModule
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
