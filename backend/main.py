@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from ProcessExcel import ProcessExcel
 app = FastAPI()
 
 origins = [
@@ -15,6 +17,6 @@ app.add_middleware(
 )
 
 @app.get("/api/exceldata")
-def hello():
-  return "Hello World!"
-  #return {"message":"HelloWorld!"}
+def excelData():
+    data=ProcessExcel('data.xlsx').process_single_row_data()
+    return data
