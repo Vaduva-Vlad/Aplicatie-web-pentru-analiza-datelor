@@ -9,9 +9,9 @@ import { Observable, of } from 'rxjs';
 export class ExcelService {
 
   constructor(private http:HttpClient) { }
-  url="localhost:8080/api/exceldata"
+  url="http://localhost:8000/api/exceldata"
 
-  getSingleRowData():Observable<SingleRowData>{
-    return this.http.get<SingleRowData>(this.url)
+  getSingleRowData(){
+    return this.http.get<SingleRowData[]>(this.url)
   }
 }

@@ -19,4 +19,4 @@ app.add_middleware(
 @app.get("/api/exceldata")
 def excelData():
     data=ProcessExcel('data.xlsx').process_single_row_data()
-    return data
+    return [data]
