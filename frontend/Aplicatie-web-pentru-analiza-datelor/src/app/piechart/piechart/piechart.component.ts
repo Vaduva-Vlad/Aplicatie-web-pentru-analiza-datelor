@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ExcelService } from 'src/services/excel.service';
+import { SimpleData } from 'src/dataformats/SimpleData';
 
 @Component({
   selector: 'app-piechart',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PiechartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private excelService:ExcelService) { }
+
+  data:SimpleData[]=[]
 
   ngOnInit(): void {
+    this.getData()
+  }
+
+  getData():void{
+    this.excelService.getSimpleData().subscribe(data=>this.data=data)
   }
 
 }
