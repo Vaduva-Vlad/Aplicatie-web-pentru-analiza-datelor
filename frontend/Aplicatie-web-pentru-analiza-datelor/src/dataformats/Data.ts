@@ -1,4 +1,4 @@
-export interface SimpleData{
+export interface Data{
     name:String,
     data:number
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SimpleData } from 'src/dataformats/SimpleData';
+import { Data } from 'src/dataformats/Data';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
@@ -11,7 +11,7 @@ export class ExcelService {
   constructor(private http:HttpClient) { }
   url="http://localhost:8000/api/exceldata"
 
-  getSimpleData():Observable<SimpleData[]>{
-    return this.http.get<SimpleData[]>(this.url)
+  getData():Observable<Data[]>{
+    return this.http.get<Data[]>(this.url)
   }
 }
