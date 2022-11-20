@@ -11,7 +11,7 @@ export class ExcelService {
   constructor(private http:HttpClient) { }
   url="http://localhost:8000/api/exceldata"
 
-  getData():Observable<Data[]>{
-    return this.http.get<Data[]>(this.url)
+  getData():Observable<Object[]>{
+    return this.http.get<Object[]>(this.url)
   }
 }
