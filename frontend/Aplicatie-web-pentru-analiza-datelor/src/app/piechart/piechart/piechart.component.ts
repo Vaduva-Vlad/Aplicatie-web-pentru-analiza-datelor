@@ -13,7 +13,6 @@ export class PiechartComponent implements OnInit {
   constructor(private excelService:ExcelService) { }
 
   data:any=[]
-  converted_data:Object[]=[]
 
   chartOption:EChartsOption={}
 
@@ -24,17 +23,8 @@ export class PiechartComponent implements OnInit {
   getData():void{
     this.excelService.getData().subscribe(data=>{
       this.data=data;
-      this.converted_data=this.convertData()
       this.createChartOption();
     });
-  }
-
-  convertData(){
-    var result:Object[]=[];
-    for(let i=0;i<this.data.length;i++){
-      result.push({value:this.data[i].data, name:this.data[i].name});
-    }
-    return result;
   }
 
   createChartOption(){
@@ -57,7 +47,7 @@ export class PiechartComponent implements OnInit {
           name: 'Data',
           type: 'pie',
           radius: '50%',
-          data: this.converted_data,
+          data: this.data,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
