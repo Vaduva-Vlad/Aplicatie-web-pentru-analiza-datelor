@@ -1,2 +1,27 @@
-<app-piechart></app-piechart>
-<app-linechart></app-linechart>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <button mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+
+    </button>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="push" [(opened)]="opened">
+      <span style="margin-left:10px">Sidenav content</span>
+    </mat-sidenav>
+
+    <mat-sidenav-content style="background-color: #B4CFCA;">
+
+      sdfasdf
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  </body>
+</html>
+  
