@@ -6,22 +6,25 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-    <button mat-button (click)="sidenav.toggle()">
+
+    <mat-toolbar color="primary" class="fix">
+      <button mat-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
-
     </button>
+      <span>Aplicatie</span>
+    </mat-toolbar>
+  
+  <div style="height:100vh">
+    <mat-sidenav-container style="height:100%">
+      <mat-sidenav #sidenav mode="push" [(opened)]="opened" style="height:100%">
+        <span style="margin-left:10px">Sidenav content</span>
+      </mat-sidenav>
 
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="push" [(opened)]="opened">
-      <span style="margin-left:10px">Sidenav content</span>
-    </mat-sidenav>
-
-    <mat-sidenav-content style="background-color: #B4CFCA;">
-
-      sdfasdf
-      
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+      <mat-sidenav-content style="height:100%">
+        <app-dashboards></app-dashboards>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
   </body>
 </html>
   

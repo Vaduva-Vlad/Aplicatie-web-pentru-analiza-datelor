@@ -12,12 +12,15 @@ import { LinechartComponent } from './linechart/linechart.component';
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { DashboardsComponent } from './dashboards/dashboards.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     PiechartComponent,
-    LinechartComponent
+    LinechartComponent,
+    DashboardsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { MatButtonModule } from '@angular/material/button'
     MatSidenavModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
