@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { PiechartComponent } from './piechart/piechart/piechart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { LinechartComponent } from './linechart/linechart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PiechartComponent
+    PiechartComponent,
+    LinechartComponent
   ],
   imports: [
     BrowserModule,
