@@ -1,4 +1,23 @@
-<mat-card style="margin:5vw">
-  <mat-card-title>Dashboard-uri</mat-card-title>
-  <mat-card-content>Simple card</mat-card-content>
-</mat-card>      
+<html>
+
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body>
+    <mat-card style="margin:5vw">
+      <mat-card-title>
+        <mat-icon>space_dashboard</mat-icon>
+        Dashboard-uri
+        <button mat-button><mat-icon>add_box</mat-icon></button>
+      </mat-card-title>
+      <mat-list *ngFor="let dashboard of dashboards">
+        <mat-list-item>{{dashboard.name}}</mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </mat-card>      
+  </body>
+</html>
