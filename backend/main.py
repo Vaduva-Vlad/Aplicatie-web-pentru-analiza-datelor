@@ -61,5 +61,6 @@ def getDashboards():
         ]
     }
     graph1=Graph(1,option1)
-    dashboard1=Dashboard(1,[graph1])
-    return dashboard1
+    dashboard1=Dashboard(1,'Nume Dashboard',[graph1])
+    dashboard2 = Dashboard(2, 'Nume Dashboard2', [graph1])
+    return [dashboard1,dashboard2]
