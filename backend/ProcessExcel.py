@@ -9,9 +9,11 @@ class ProcessExcel:
         result=[]
         df = pd.read_excel(self.file)
         for idx,row in df.iterrows():
-            data=SimpleData(str(row['name']),int(row['value']))
+            #data=SimpleData(int(row['value']),str(row['name']))
+            data={'value':int(row['value']),'name':str(row['name'])}
             result.append(data)
         return result
+
 
 def main():
     excel = ProcessExcel('data.xlsx')
