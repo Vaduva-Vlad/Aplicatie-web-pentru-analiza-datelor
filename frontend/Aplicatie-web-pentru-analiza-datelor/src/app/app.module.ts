@@ -15,7 +15,8 @@ import { MatButtonModule } from '@angular/material/button'
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DashboardsComponent } from './dashboards/dashboards.component'
 import {MatListModule} from '@angular/material/list';
-import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component'
+import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component';
+import { ChartComponent } from './chart/chart.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.co
     PiechartComponent,
     LinechartComponent,
     DashboardsComponent,
-    DashboardDetailComponent
+    DashboardDetailComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
