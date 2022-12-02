@@ -3,6 +3,7 @@ import { DashboardService } from 'src/services/dashboard.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Dashboard } from 'src/models/Dashboard';
+import { Graph } from 'src/models/Graph';
 
 @Component({
   selector: 'app-dashboard-detail',
@@ -18,6 +19,7 @@ export class DashboardDetailComponent implements OnInit {
     ) { }
 
   dashboard:Dashboard|undefined;
+  graphs:Graph[]=[]
 
   ngOnInit(): void {
     this.getDashboard()
@@ -25,7 +27,7 @@ export class DashboardDetailComponent implements OnInit {
   
   getDashboard(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.dashboardService.getDashboard(id).subscribe(dashboard=>{this.dashboard=dashboard;console.log(dashboard.id)})
+    this.dashboardService.getDashboard(id).subscribe(dashboard=>{this.dashboard=dashboard;this.graphs=this.dashboard.graphs})
   }
 
 }
