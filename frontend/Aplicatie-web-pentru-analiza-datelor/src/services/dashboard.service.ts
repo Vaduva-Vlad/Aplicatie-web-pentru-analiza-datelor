@@ -14,4 +14,8 @@ export class DashboardService {
   getDashboards():Observable<Dashboard[]>{
     return this.http.get<Dashboard[]>(this.url)
   }
+
+  getDashboard(id:number):Observable<Dashboard>{
+    return this.http.get<Dashboard>(`${this.url}/${id}`)
+  }
 }

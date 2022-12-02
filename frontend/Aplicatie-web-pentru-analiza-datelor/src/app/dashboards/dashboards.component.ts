@@ -19,7 +19,6 @@ export class DashboardsComponent implements OnInit {
   getDashboards(){
     this.dashboardService.getDashboards().subscribe(dashboards=>{
       this.dashboards=dashboards
-      console.log(this.dashboards)
     })
   }
 

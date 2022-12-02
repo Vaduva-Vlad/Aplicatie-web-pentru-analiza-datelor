@@ -14,14 +14,16 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DashboardsComponent } from './dashboards/dashboards.component'
-import {MatListModule} from '@angular/material/list'
+import {MatListModule} from '@angular/material/list';
+import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     PiechartComponent,
     LinechartComponent,
-    DashboardsComponent
+    DashboardsComponent,
+    DashboardDetailComponent
   ],
   imports: [
     BrowserModule,
