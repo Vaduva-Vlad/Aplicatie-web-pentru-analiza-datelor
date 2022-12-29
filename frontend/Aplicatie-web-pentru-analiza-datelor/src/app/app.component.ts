@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Aplicatie-web-pentru-analiza-datelor';
+  opened=false;
 }
