@@ -12,7 +12,7 @@
       <mat-card-title>
         <mat-icon>space_dashboard</mat-icon>
         Dashboard-uri
-        <button mat-button><mat-icon>add_box</mat-icon></button>
+        <button mat-button (click)="openDialog()"><mat-icon>add_box</mat-icon></button>
       </mat-card-title>
       <mat-list *ngFor="let dashboard of dashboards">
         <mat-list-item><a routerLink="/dashboard/{{dashboard.id}}">{{dashboard.name}}</a></mat-list-item>
