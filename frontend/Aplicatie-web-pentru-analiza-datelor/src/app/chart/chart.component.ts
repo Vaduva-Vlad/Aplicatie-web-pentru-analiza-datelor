@@ -16,6 +16,7 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.setOption()
+    console.log(this.graph)
   }
 
   setOption(){
