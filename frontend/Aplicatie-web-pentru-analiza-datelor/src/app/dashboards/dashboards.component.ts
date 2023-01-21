@@ -19,7 +19,7 @@ export class DashboardsComponent implements OnInit {
   }
 
   getDashboards(){
-    this.dashboardService.getDashboards().subscribe(dashboards=>{
+    this.dashboardService.getDashboards(1).subscribe(dashboards=>{
       this.dashboards=dashboards
     })
   }

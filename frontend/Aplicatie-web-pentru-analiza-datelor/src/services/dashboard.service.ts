@@ -11,8 +11,8 @@ export class DashboardService {
   constructor(private http:HttpClient) { }
   url="http://localhost:8000/api/dashboards"
 
-  getDashboards():Observable<Dashboard[]>{
-    return this.http.get<Dashboard[]>(this.url)
+  getDashboards(user_id:number):Observable<Dashboard[]>{
+    return this.http.get<Dashboard[]>(`${this.url}/${user_id}`)
   }
 
   getDashboard(id:number):Observable<Dashboard>{
