@@ -15,8 +15,12 @@ import { MatButtonModule } from '@angular/material/button'
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DashboardsComponent } from './dashboards/dashboards.component'
 import {MatListModule} from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component';
-import { ChartComponent } from './chart/chart.component'
+import { ChartComponent } from './chart/chart.component';
+import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboard-dialog.component'
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { ChartComponent } from './chart/chart.component'
     LinechartComponent,
     DashboardsComponent,
     DashboardDetailComponent,
-    ChartComponent
+    ChartComponent,
+    AddDashboardDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,11 @@ import { ChartComponent } from './chart/chart.component'
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
