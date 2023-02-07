@@ -24,13 +24,7 @@ option= {
       'name': 'Access From',
       'type': 'pie',
       'radius': '50%',
-      'data': [
-        { 'value': 1048, 'name': 'Search Engine' },
-        { 'value': 735, 'name': 'Direct' },
-        { 'value': 580, 'name': 'Email' },
-        { 'value': 484, 'name': 'Union Ads' },
-        { 'value': 300, 'name': 'Video Ads' }
-      ],
+      'data': [],
       'emphasis': {
         'itemStyle': {
           'shadowBlur': 10,
@@ -42,17 +36,20 @@ option= {
   ]
 }
 option_json=json.dumps(option)
+position_json=json.dumps({'x':100,'y':100})
 
 with connection:
   with connection.cursor() as cursor:
     sql="""INSERT INTO Users(
     `id`,
+    `username`,
     `email`,
     `password`
     )
     VALUES 
     (
     1,
+    "user1",
     "user1@mail.com",
     "1234"
     )"""
@@ -69,15 +66,21 @@ with connection:
     )"""
     cursor.execute(sql)
 
-    sql=f"""INSERT INTO Graphs(
-    `id`,
-    `dashboard_id`,
-    `options`
-    )VALUES (
-    1,
-    1,
-    '{option_json}'
-    )"""
+    sql = f"""INSERT INTO Graphs(
+        `id`,
+        `dashboard_id`,
+        `position`,
+        `type`,
+        `option`,
+        `data_source`
+        )VALUES (
+        1,
+        1,
+        '{position_json}',
+        'pie',
+        '{option_json}',
+        'csv'
+        )"""
     cursor.execute(sql)
 
   connection.commit()

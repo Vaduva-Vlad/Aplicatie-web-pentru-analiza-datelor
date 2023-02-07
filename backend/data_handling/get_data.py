@@ -1,6 +1,10 @@
 import pymysql
 import pymysql.cursors
 import json
+from .get_data_for_graph import GetGraphData
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 connection = pymysql.connect(host='localhost',
                              user='vlad',
@@ -36,6 +40,10 @@ def get_graph_by_dashboard_id(dashboard_id):
 
     for graph in result:
         graph["option"]=json.loads(graph['option'])
+        graph["position"]=json.loads(graph['position'])
+        graph_data_handler=GetGraphData(graph)
+        data=graph_data_handler.get_data()
+        graph['option']['series'][0]['data']=data
     connection.commit()
 
     return result

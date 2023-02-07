@@ -21,6 +21,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component';
 import { ChartComponent } from './chart/chart.component';
 import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboard-dialog.component'
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboar
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

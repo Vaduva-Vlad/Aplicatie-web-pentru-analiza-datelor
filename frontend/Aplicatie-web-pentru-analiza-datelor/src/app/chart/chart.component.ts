@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Graph } from 'src/models/Graph';
 import { EChartsOption } from 'echarts'; 
+import { CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-chart',
@@ -16,12 +17,15 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.setOption()
-    console.log(this.graph)
   }
 
   setOption(){
     this.option=<EChartsOption>this.graph?.option
-    console.log(this.option)
+    console.log(this.graph)
   }
+
+  dragEnd($event: CdkDragEnd) {
+    console.log($event.source.getFreeDragPosition());
+}
 
 }
