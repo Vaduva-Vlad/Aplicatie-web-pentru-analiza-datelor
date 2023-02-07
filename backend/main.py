@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Request
 from fastapi.middleware.cors import CORSMiddleware
-from data_handling.get_data import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id
+from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id,email_exists,add_user
 from ProcessExcel import ProcessExcel
 from models.User import User
 from werkzeug.security import generate_password_hash,check_password_hash
@@ -42,5 +42,16 @@ def get_dashboard_with_id(id):
 
 
 @app.post("/signup")
-def signup(user: User):
-    return user
+async def signup(request:Request):
+    body = await request.json()
+    email=body['email']
+    username=body['username']
+    password=body['password']
+
+    if email_exists(email):
+        return "User already exists"
+
+    user=User(username,email,password)
+    add_user(user)
+
+    return [email,username,password]
