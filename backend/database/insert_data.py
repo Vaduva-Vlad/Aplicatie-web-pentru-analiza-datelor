@@ -40,20 +40,7 @@ position_json=json.dumps({'x':100,'y':100})
 
 with connection:
   with connection.cursor() as cursor:
-    sql="""INSERT INTO Users(
-    `id`,
-    `username`,
-    `email`,
-    `password`
-    )
-    VALUES 
-    (
-    1,
-    "user1",
-    "user1@mail.com",
-    "1234"
-    )"""
-    cursor.execute(sql)
+
 
     sql="""INSERT INTO Dashboards(
     `id`,

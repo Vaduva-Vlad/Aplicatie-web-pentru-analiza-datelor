@@ -21,7 +21,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component';
 import { ChartComponent } from './chart/chart.component';
 import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboard-dialog.component'
-import {DragDropModule} from '@angular/cdk/drag-drop'
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { RegisterComponent } from './register/register.component'
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     DashboardsComponent,
     DashboardDetailComponent,
     ChartComponent,
-    AddDashboardDialogComponent
+    AddDashboardDialogComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
-    DragDropModule
+    DragDropModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

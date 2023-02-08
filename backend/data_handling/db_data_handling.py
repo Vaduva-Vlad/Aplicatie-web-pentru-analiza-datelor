@@ -44,8 +44,8 @@ def get_graph_by_dashboard_id(dashboard_id):
     return result
 
 
-def email_exists(email):
-    sql = f"SELECT COUNT(*) as num FROM Users WHERE email='{email}'"
+def user_exists(email,username):
+    sql = f"SELECT COUNT(*) as num FROM Users WHERE email='{email}' OR username='{username}'"
     cursor.execute(sql)
     result = cursor.fetchone()
     if result['num'] == 0:
@@ -58,4 +58,14 @@ def add_user(user):
             VALUES ('{user.username}','{user.email}','{user.password}')"""
     cursor.execute(sql)
     conn.commit()
-    print('here')
+
+    sql = f"""SELECT * FROM Users WHERE email='{user.email}'"""
+    cursor.execute(sql)
+    result=cursor.fetchone()
+    return result
+
+def get_user(username):
+    sql=f"SELECT * FROM Users WHERE username='{username}'"
+    cursor.execute(sql)
+    result=cursor.fetchone()
+    return result
