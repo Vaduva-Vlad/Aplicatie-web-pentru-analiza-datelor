@@ -24,6 +24,7 @@ import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboar
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { RegisterComponent } from './register/register.component'
 import {MatInputModule} from '@angular/material/input';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {MatInputModule} from '@angular/material/input';
     DashboardDetailComponent,
     ChartComponent,
     AddDashboardDialogComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

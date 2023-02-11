@@ -6,7 +6,10 @@ from fastapi.security import OAuth2PasswordBearer
 from ProcessExcel import ProcessExcel
 from models.User import User
 from werkzeug.security import generate_password_hash, check_password_hash
+import jwt
+import datetime
 
+secret='secret'
 app = FastAPI()
 
 origins = [
@@ -64,7 +67,10 @@ async def login(request: Request):
     user_data = await request.json()
     user = get_user(user_data['username'])
     if not user:
-        raise HTTPException(status_code=400,detail="Nume de utilizator sau parolă greșită")
-    if not check_password_hash(user['password'],user_data['password']):
         raise HTTPException(status_code=400, detail="Nume de utilizator sau parolă greșită")
-    return user
+    if check_password_hash(user['password'], user_data['password']):
+        token=jwt.encode({'user_id':user['id'],'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60)},
+                         secret,"HS256")
+        return {"token":token,'user_id':user['id']}
+    else:
+        raise HTTPException(status_code=400, detail="Nume de utilizator sau parolă greșită")
