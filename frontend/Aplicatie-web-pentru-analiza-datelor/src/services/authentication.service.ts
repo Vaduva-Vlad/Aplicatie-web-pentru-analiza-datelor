@@ -15,8 +15,8 @@ export class AuthenticationService {
     return this.http.post<Object>(this.register_url,data)
   }
 
-  login(data:Object):Observable<Object>{
-    return this.http.post<Object>(this.login_url,data)
+  login(data:Object):Observable<string>{
+    return this.http.post<string>(this.login_url,data)
   }
 
 }
