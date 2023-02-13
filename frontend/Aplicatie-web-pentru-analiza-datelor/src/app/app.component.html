@@ -14,8 +14,16 @@
       
       <span>Aplicatie</span>
       <span style="flex: 1 1 auto;"></span>
-      <button mat-raised-button (click)="openLoginDialog()" color="accent" style="margin-right:5px">Autentificare</button>
-      <button mat-raised-button (click)="openRegisterDialog()">Înregistrare</button>
+
+      <div *ngIf="display">
+        <button mat-raised-button (click)="openLoginDialog()" color="accent" style="margin-right:5px">Autentificare</button>
+        <button mat-raised-button (click)="openRegisterDialog()">Înregistrare</button>
+      </div>
+
+      <div *ngIf="!display">
+        <button mat-raised-button (click)="logout()">Deconectare</button>
+      </div>
+
     </mat-toolbar>
   
   <div style="height:100vh">
