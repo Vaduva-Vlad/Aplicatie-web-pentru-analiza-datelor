@@ -20,15 +20,7 @@ export class DashboardService {
     return this.http.get<Dashboard>(`${this.single_url}/${id}`)
   }
 
-  addDashboard(dashboard:Dashboard){
-    return this.http.post<Dashboard>(this.url,dashboard).subscribe({
-      next: data => {
-        console.log('Add successful for issue #', data);
-        window.location.reload();
-      },
-      error: error => {
-          console.error('There was an error!', error);
-      }
-    })
+  addDashboard(dashboard:Object):Observable<Dashboard>{
+    return this.http.post<Dashboard>(this.single_url,dashboard)
   }
 }

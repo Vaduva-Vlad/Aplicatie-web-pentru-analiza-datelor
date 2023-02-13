@@ -69,3 +69,13 @@ def get_user(username):
     cursor.execute(sql)
     result=cursor.fetchone()
     return result
+
+def add_new_dashboard(dashboard):
+    sql=f"""INSERT INTO Dashboards (user_id,name)
+            VALUES ('{dashboard.user_id}','{dashboard.name}')"""
+    cursor.execute(sql)
+    conn.commit()
+    sql=f"SELECT LAST_INSERT_ID() AS id"
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    return result

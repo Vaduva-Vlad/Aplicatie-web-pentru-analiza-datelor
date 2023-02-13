@@ -14,6 +14,7 @@ export class DashboardsComponent implements OnInit {
 
   constructor(private dashboardService:DashboardService,public dialog: MatDialog,private authenticationService:AuthenticationService) { }
   dashboards:Dashboard[]|undefined
+  displayAddDashboard=false
 
   ngOnInit(): void {
     this.getDashboards()
@@ -25,8 +26,8 @@ export class DashboardsComponent implements OnInit {
     })
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(AddDashboardDialogComponent)
+  addDashboardDialog(): void {
+    this.displayAddDashboard=!this.displayAddDashboard
   }
 
   isAuthenticated():boolean{
