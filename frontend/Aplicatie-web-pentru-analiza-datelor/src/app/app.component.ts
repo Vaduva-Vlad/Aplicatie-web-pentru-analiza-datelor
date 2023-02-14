@@ -18,6 +18,12 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.authenticated()
+    let content=document.getElementById("content")
+    let contentHeight=content!.clientHeight
+    let contentOffset=content!.offsetTop
+    let newHeight=String(contentHeight-contentOffset).concat("px")
+    //content!.style.height=newHeight
+    console.log(newHeight)
   }
 
   openRegisterDialog(){
