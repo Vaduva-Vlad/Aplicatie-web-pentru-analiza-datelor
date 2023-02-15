@@ -17,5 +17,5 @@ class ProcessCSV:
 
 
 if __name__=='__main__':
-    pcsv=ProcessCSV('localdata/1_1.csv')
+    pcsv=ProcessCSV('localdata/6_1.csv')
     pcsv.process_for_pie_chart()

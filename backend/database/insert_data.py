@@ -41,18 +41,6 @@ position_json=json.dumps({'x':100,'y':100})
 with connection:
   with connection.cursor() as cursor:
 
-
-    sql="""INSERT INTO Dashboards(
-    `id`,
-    `user_id`,
-    `name`
-    )VALUES (
-    1,
-    1,
-    "Dashboard1"
-    )"""
-    cursor.execute(sql)
-
     sql = f"""INSERT INTO Graphs(
         `id`,
         `dashboard_id`,
@@ -62,7 +50,7 @@ with connection:
         `data_source`
         )VALUES (
         1,
-        1,
+        6,
         '{position_json}',
         'pie',
         '{option_json}',
