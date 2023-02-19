@@ -1,0 +1,15 @@
+<mat-horizontal-stepper #addGraph linear style="width:50vw;height:50vh">
+
+    <mat-step [completed]="isThisStepDone">
+        <button mat-raised-button style="width:30%;aspect-ratio: 1/1;" (click)="next(addGraph)">
+            <mat-icon class="chart-type-icon">pie_chart</mat-icon>
+        </button>
+        <button mat-raised-button style="width:30%;aspect-ratio: 1/1;" (click)="next(addGraph)">
+            <mat-icon class="chart-type-icon">pie_chart</mat-icon>
+        </button>
+        <button mat-raised-button style="width:30%;aspect-ratio: 1/1;" (click)="next(addGraph)">
+            <mat-icon class="chart-type-icon">pie_chart</mat-icon>
+        </button>
+    </mat-step>
+
+</mat-horizontal-stepper>

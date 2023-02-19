@@ -25,6 +25,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { RegisterComponent } from './register/register.component'
 import {MatInputModule} from '@angular/material/input';
 import { LoginComponent } from './login/login.component';
+import { AddGraphComponent } from './add-graph/add-graph.component';
+import {MatStepperModule} from '@angular/material/stepper'
+import {MatRadioModule} from '@angular/material/radio'
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { LoginComponent } from './login/login.component';
     ChartComponent,
     AddDashboardDialogComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    AddGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,9 @@ import { LoginComponent } from './login/login.component';
     MatDialogModule,
     MatFormFieldModule,
     DragDropModule,
-    MatInputModule
+    MatInputModule,
+    MatStepperModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
