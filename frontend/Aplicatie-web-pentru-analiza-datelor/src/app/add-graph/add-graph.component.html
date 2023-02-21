@@ -1,15 +1,43 @@
-<mat-horizontal-stepper #addGraph linear style="width:50vw;height:50vh">
+<mat-horizontal-stepper #addGraph [linear]="isLinear" [animationDuration]="'100'">
 
-    <mat-step [completed]="isThisStepDone">
-        <button mat-raised-button style="width:30%;aspect-ratio: 1/1;" (click)="next(addGraph)">
+    <mat-step [completed]="isThisStepDone" label="Tipul graficului" [editable]="false">
+        <span style="margin-top:5px">Selectați tipul graficului:</span><br>
+        <button mat-raised-button class="chart-type-button" (click)="onGraphSelect(addGraph,'pie')">
             <mat-icon class="chart-type-icon">pie_chart</mat-icon>
         </button>
-        <button mat-raised-button style="width:30%;aspect-ratio: 1/1;" (click)="next(addGraph)">
-            <mat-icon class="chart-type-icon">pie_chart</mat-icon>
+        <button mat-raised-button class="chart-type-button" (click)="onGraphSelect(addGraph,'line')">
+            <mat-icon class="chart-type-icon">show_chart</mat-icon>
         </button>
-        <button mat-raised-button style="width:30%;aspect-ratio: 1/1;" (click)="next(addGraph)">
-            <mat-icon class="chart-type-icon">pie_chart</mat-icon>
+        <button mat-raised-button class="chart-type-button" (click)="onGraphSelect(addGraph,'bar')">
+            <mat-icon class="chart-type-icon">bar_chart</mat-icon>
         </button>
+
+    </mat-step>
+
+    <mat-step [completed]="isThisStepDone" label="Sursa de date">
+        <mat-form-field>
+            <mat-label>Sursa de date</mat-label>
+            <mat-select [(value)]="dataSource" (selectionChange)="resetDataSource($event)">
+                <mat-option>None</mat-option>
+                <mat-option value="CSV">CSV</mat-option>
+                <mat-option value="SQL">SQL</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+        <div *ngIf="dataSource=='CSV'">
+            <button mat-raised-button (click)="selectFile.click()" style="margin-bottom:10px">Selectare fișier</button>
+            <input hidden #selectFile type="file" accept=".csv" (change)="onSelectedFile($event)">
+            {{selectedFile?.name}}
+        </div>
+
+        <div *ngIf="isDataSourceSelected">
+            <button mat-raised-button color="primary" (click)="next(addGraph)">Următor</button>
+        </div>
+    </mat-step>
+
+    <mat-step label="Alegeți coloanele">
+        <button mat-raised-button color="primary">Terminat</button>
     </mat-step>
 
 </mat-horizontal-stepper>

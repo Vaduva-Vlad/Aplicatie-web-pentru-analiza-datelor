@@ -28,6 +28,7 @@ import { LoginComponent } from './login/login.component';
 import { AddGraphComponent } from './add-graph/add-graph.component';
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatRadioModule} from '@angular/material/radio'
+import {MatSelectModule} from '@angular/material/select'
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {MatRadioModule} from '@angular/material/radio'
     DragDropModule,
     MatInputModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

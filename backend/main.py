@@ -85,3 +85,4 @@ async def add_dashboard(request: Request):
     dashboard=Dashboard(user_id,name)
     added_dashboard=add_new_dashboard(dashboard)
     return added_dashboard['id']
+
