@@ -1,5 +1,4 @@
-<mat-card>
-    <div style="width:500px">
-        <div echarts [options]="option"></div>
+<mat-card style="width:550px" cdkDrag cdkDragBoundary=".boundary" (cdkDragEnded)="dragEnd($event)" [cdkDragFreeDragPosition]="graph?.position!">
+    <div style="width:500px" echarts [options]="option" >
     </div>
 </mat-card>

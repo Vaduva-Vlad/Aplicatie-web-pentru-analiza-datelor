@@ -3,6 +3,7 @@ import { DashboardService } from 'src/services/dashboard.service';
 import { Dashboard } from 'src/models/Dashboard';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AddDashboardDialogComponent } from '../add-dashboard-dialog/add-dashboard-dialog.component';
+import { AuthenticationService } from 'src/services/authentication.service';
 
 @Component({
   selector: 'app-dashboards',
@@ -11,8 +12,9 @@ import { AddDashboardDialogComponent } from '../add-dashboard-dialog/add-dashboa
 })
 export class DashboardsComponent implements OnInit {
 
-  constructor(private dashboardService:DashboardService,public dialog: MatDialog) { }
+  constructor(private dashboardService:DashboardService,public dialog: MatDialog,private authenticationService:AuthenticationService) { }
   dashboards:Dashboard[]|undefined
+  displayAddDashboard=false
 
   ngOnInit(): void {
     this.getDashboards()
@@ -24,7 +26,11 @@ export class DashboardsComponent implements OnInit {
     })
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(AddDashboardDialogComponent)
+  addDashboardDialog(): void {
+    this.displayAddDashboard=!this.displayAddDashboard
+  }
+
+  isAuthenticated():boolean{
+    return this.authenticationService.isAuthenticated()
   }
 }

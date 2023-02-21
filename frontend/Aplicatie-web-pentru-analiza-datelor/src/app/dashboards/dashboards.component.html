@@ -8,16 +8,26 @@
   </head>
 
   <body>
-    <mat-card style="margin:5vw">
-      <mat-card-title>
-        <mat-icon>space_dashboard</mat-icon>
-        Dashboard-uri
-        <button mat-button (click)="openDialog()"><mat-icon>add_box</mat-icon></button>
-      </mat-card-title>
-      <mat-list *ngFor="let dashboard of dashboards">
-        <mat-list-item><a routerLink="/dashboard/{{dashboard.id}}">{{dashboard.name}}</a></mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list>
-    </mat-card>      
+    <div *ngIf="isAuthenticated()">
+      <mat-card style="margin:5vw">
+        <mat-card-title>
+          <mat-icon>space_dashboard</mat-icon>
+          Dashboard-uri
+          <span *ngIf="!displayAddDashboard">
+            <button mat-button (click)="addDashboardDialog()"><mat-icon>add_box</mat-icon></button>
+          </span>
+          <div *ngIf="displayAddDashboard">
+            <app-add-dashboard-dialog></app-add-dashboard-dialog>
+          </div>
+        </mat-card-title>
+        <mat-list *ngFor="let dashboard of dashboards">
+          <mat-list-item><a routerLink="/dashboard/{{dashboard.id}}">{{dashboard.name}}</a></mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </mat-card>   
+    </div>   
+
+    <!-- meniu in cazul in care utilizatorul nu este autentificat -->
+
   </body>
 </html>

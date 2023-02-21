@@ -1,3 +1,6 @@
-<div *ngFor="let graph of graphs">
-    <app-chart [graph]="graph"></app-chart>
+<button mat-raised-button color="accent" (click)="openDialog()">Adăugare grafic</button>
+<div class="boundary">
+    <div *ngFor="let graph of graphs">
+        <app-chart [graph]="graph"></app-chart>
+    </div>
 </div>
