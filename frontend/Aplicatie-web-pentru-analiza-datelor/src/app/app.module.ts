@@ -21,6 +21,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component';
 import { ChartComponent } from './chart/chart.component';
 import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboard-dialog.component'
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { RegisterComponent } from './register/register.component'
+import {MatInputModule} from '@angular/material/input';
+import { LoginComponent } from './login/login.component';
+import { AddGraphComponent } from './add-graph/add-graph.component';
+import {MatStepperModule} from '@angular/material/stepper'
+import {MatRadioModule} from '@angular/material/radio'
+import {MatSelectModule} from '@angular/material/select'
 
 @NgModule({
   declarations: [
@@ -30,7 +38,10 @@ import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboar
     DashboardsComponent,
     DashboardDetailComponent,
     ChartComponent,
-    AddDashboardDialogComponent
+    AddDashboardDialogComponent,
+    RegisterComponent,
+    LoginComponent,
+    AddGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +61,12 @@ import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboar
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DragDropModule,
+    MatInputModule,
+    MatStepperModule,
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

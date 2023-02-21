@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Dashboard } from 'src/models/Dashboard';
 import { Graph } from 'src/models/Graph';
+import { GraphService } from 'src/services/graph.service';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { AddGraphComponent } from '../add-graph/add-graph.component';
 
 @Component({
   selector: 'app-dashboard-detail',
@@ -15,7 +18,9 @@ export class DashboardDetailComponent implements OnInit {
   constructor(
     private dashboardService:DashboardService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private graphService:GraphService,
+    private dialog:MatDialog
     ) { }
 
   dashboard:Dashboard|undefined;
@@ -27,7 +32,19 @@ export class DashboardDetailComponent implements OnInit {
   
   getDashboard(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.dashboardService.getDashboard(id).subscribe(dashboard=>{this.dashboard=dashboard;this.graphs=this.dashboard.graphs})
+    this.dashboardService.getDashboard(id).subscribe(dashboard=>{
+      this.dashboard=dashboard;
+      this.getGraphs()
+    })
+  }
+
+  getGraphs(){
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.graphService.getGraphs(id).subscribe(graphs=>{this.graphs=graphs;console.log(this.graphs)})
+  }
+
+  openDialog(){
+    const dialog=this.dialog.open(AddGraphComponent)
   }
 
 }

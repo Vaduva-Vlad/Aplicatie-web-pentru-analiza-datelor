@@ -8,6 +8,15 @@ connection = pymysql.connect(host='localhost',
 
 with connection:
     with connection.cursor() as cursor:
+        sql="""CREATE TABLE IF NOT EXISTS Users(
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `username` varchar(16),
+        `email` varchar(255),
+        `password` varchar(255),
+        PRIMARY KEY (`id`))
+        AUTO_INCREMENT=1"""
+        cursor.execute(sql)
+
         sql="""CREATE TABLE IF NOT EXISTS Dashboards(
         id int(11) NOT NULL AUTO_INCREMENT,
         user_id int(11) NOT NULL,
@@ -16,18 +25,13 @@ with connection:
         FOREIGN KEY (user_id) REFERENCES Users(id))"""
         cursor.execute(sql)
 
-        sql="""CREATE TABLE IF NOT EXISTS Users(
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `email` varchar(255),
-        `password` varchar(255),
-        PRIMARY KEY (`id`))
-        AUTO_INCREMENT=1"""
-        cursor.execute(sql)
-
         sql="""CREATE TABLE IF NOT EXISTS Graphs(
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `dashboard_id` int(11) NOT NULL,
-        `options` JSON NOT NULL,
+        `position` JSON NOT NULL,
+        `type` VARCHAR(20),
+        `option` JSON NOT NULL,
+        `data_source` VARCHAR(25),
         PRIMARY KEY(`id`),
         FOREIGN KEY (dashboard_id) REFERENCES Dashboards(id)
         )

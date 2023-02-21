@@ -6,25 +6,36 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-
     <mat-toolbar color="primary" class="fix">
       <button mat-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
-    </button>
+      </button>
+      
       <span>Aplicatie</span>
+      <span style="flex: 1 1 auto;"></span>
+
+      <div *ngIf="display">
+        <button mat-raised-button (click)="openLoginDialog()" color="accent" style="margin-right:5px">Autentificare</button>
+        <button mat-raised-button (click)="openRegisterDialog()">Înregistrare</button>
+      </div>
+
+      <div *ngIf="!display">
+        <button mat-raised-button (click)="logout()">Deconectare</button>
+      </div>
+
     </mat-toolbar>
   
-  <div style="height:100vh">
-    <mat-sidenav-container style="height:100%">
-      <mat-sidenav #sidenav mode="push" [(opened)]="opened" style="height:100%">
-        <span style="margin-left:10px">Sidenav content</span>
-      </mat-sidenav>
+    <div id="content">
+      <mat-sidenav-container style="height:100%">
+        <mat-sidenav #sidenav mode="push" [(opened)]="opened" style="height:100%">
+          <span style="margin-left:10px">Sidenav content</span>
+        </mat-sidenav>
 
-      <mat-sidenav-content style="height:100%">
-        <router-outlet></router-outlet>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </div>
+        <mat-sidenav-content style="height:100%">
+          <router-outlet></router-outlet>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
   </body>
 </html>
   

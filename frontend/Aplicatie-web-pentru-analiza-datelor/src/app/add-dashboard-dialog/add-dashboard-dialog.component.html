@@ -1,7 +1,9 @@
-<h1 mat-dialog-title>Dashboard nou</h1>
-<div mat-dialog-content>
+<div style="font-size: 20px;">
     <mat-form-field>
         <mat-label>Nume Dashboard</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="dashboardName">
     </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="addDashboard()">Adaugă</button>
+    <button mat-raised-button style="margin-left:5px">Anulează</button>
 </div>

@@ -1,0 +1,19 @@
+<div style="width:20vw">
+    <mat-dialog-content>
+        <h2 mat-dialog-title>Autentificare</h2>
+            <mat-form-field appearance="fill" style="width:100%">
+                <mat-label>Nume de utilizator</mat-label>
+                <input matInput [(ngModel)]="username">
+            </mat-form-field>
+            <br>
+
+            <mat-form-field appearance="fill" style="width:100%">
+                <mat-label>Parolă</mat-label>
+                <input type="password" matInput [(ngModel)]="password">
+            </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="login()">Autentificare</button>
+    </mat-dialog-actions>
+</div>
