@@ -1,7 +1,11 @@
 <mat-horizontal-stepper #addGraph [linear]="isLinear" [animationDuration]="'100'">
 
     <mat-step [completed]="isThisStepDone" label="Tipul graficului" [editable]="false">
-        <span style="margin-top:5px">Selectați tipul graficului:</span><br>
+        <mat-form-field>
+            <mat-label>Titlul graficului</mat-label>
+            <input matInput [(ngModel)]="graphTitle">
+        </mat-form-field>
+        <br>
         <button mat-raised-button class="chart-type-button" (click)="onGraphSelect(addGraph,'pie')">
             <mat-icon class="chart-type-icon">pie_chart</mat-icon>
         </button>
@@ -37,7 +41,7 @@
     </mat-step>
 
     <mat-step label="Alegeți coloanele">
-        <button mat-raised-button color="primary">Terminat</button>
+        <button mat-raised-button color="primary" (click)="uploadFile()">Terminat</button>
     </mat-step>
 
 </mat-horizontal-stepper>

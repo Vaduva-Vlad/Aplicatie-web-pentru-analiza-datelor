@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ViewChild } from '@angular/core';
+import { FileService } from 'src/services/file.service';
 
 @Component({
   selector: 'app-add-graph',
@@ -10,15 +11,16 @@ import { ViewChild } from '@angular/core';
 })
 export class AddGraphComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fileService:FileService) { }
 
   @ViewChild('addGraph') stepper:MatStepper|undefined
   isThisStepDone:boolean=false
   selectedGraph:string=''
   dataSource:string=''
-  selectedFile:any|undefined
+  selectedFile:File|undefined
   isDataSourceSelected:boolean=false
   isLinear:boolean=true
+  graphTitle:string=''
 
   ngOnInit(): void {
   }
@@ -49,6 +51,10 @@ export class AddGraphComponent implements OnInit {
 
   resetDataSource(event:any){
     this.isDataSourceSelected=false
-    this.selectedFile=null
+    this.selectedFile!=null
+  }
+
+  uploadFile(){
+    this.fileService.uploadFile(this.selectedFile!).subscribe(response=>console.log(response))
   }
 }
