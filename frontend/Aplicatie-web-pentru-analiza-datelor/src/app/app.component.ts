@@ -23,7 +23,6 @@ export class AppComponent {
     let contentOffset=content!.offsetTop
     let newHeight=String(contentHeight-contentOffset).concat("px")
     //content!.style.height=newHeight
-    console.log(newHeight)
   }
 
   openRegisterDialog(){

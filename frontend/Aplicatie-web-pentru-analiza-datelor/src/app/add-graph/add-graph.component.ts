@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { ViewChild } from '@angular/core';
 import { FileService } from 'src/services/file.service';
+import { GraphService } from 'src/services/graph.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-graph',
@@ -11,7 +13,7 @@ import { FileService } from 'src/services/file.service';
 })
 export class AddGraphComponent implements OnInit {
 
-  constructor(private fileService:FileService) { }
+  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,) { }
 
   @ViewChild('addGraph') stepper:MatStepper|undefined
   isThisStepDone:boolean=false
@@ -21,6 +23,7 @@ export class AddGraphComponent implements OnInit {
   isDataSourceSelected:boolean=false
   isLinear:boolean=true
   graphTitle:string=''
+  dashboardId:number|undefined
 
   ngOnInit(): void {
   }
@@ -54,7 +57,9 @@ export class AddGraphComponent implements OnInit {
     this.selectedFile!=null
   }
 
-  uploadFile(){
-    this.fileService.uploadFile(this.selectedFile!).subscribe(response=>console.log(response))
+  submit(){
+    this.fileService.uploadFile(this.selectedFile!).subscribe()
+    let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"data_source":this.dataSource}
+    this.graphService.addGraph(graphData).subscribe(response=>{location.reload()})
   }
 }

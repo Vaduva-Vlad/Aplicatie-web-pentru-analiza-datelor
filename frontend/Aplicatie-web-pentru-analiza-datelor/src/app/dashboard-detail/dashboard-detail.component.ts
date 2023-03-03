@@ -40,11 +40,13 @@ export class DashboardDetailComponent implements OnInit {
 
   getGraphs(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.graphService.getGraphs(id).subscribe(graphs=>{this.graphs=graphs;console.log(this.graphs)})
+    this.graphService.getGraphs(id).subscribe(graphs=>{this.graphs=graphs;})
   }
 
   openDialog(){
+    const id = Number(this.route.snapshot.paramMap.get('id'));
     const dialog=this.dialog.open(AddGraphComponent)
+    dialog.componentInstance.dashboardId=id
   }
 
 }

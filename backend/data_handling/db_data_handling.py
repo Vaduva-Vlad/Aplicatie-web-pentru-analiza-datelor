@@ -30,6 +30,8 @@ def get_dashboard_by_id(id):
 
 
 def get_graph_by_dashboard_id(dashboard_id):
+    #commit temporar, altfel apar randuri sterse
+    conn.commit()
     sql = f"""SELECT * FROM Graphs WHERE dashboard_id='{dashboard_id}'"""
     cursor.execute(sql)
     result = cursor.fetchall()
@@ -41,6 +43,7 @@ def get_graph_by_dashboard_id(dashboard_id):
         data = graph_data_handler.get_data()
         graph['option']['series'][0]['data'] = data
 
+    print(result)
     return result
 
 
@@ -76,6 +79,18 @@ def add_new_dashboard(dashboard):
     cursor.execute(sql)
     conn.commit()
     sql=f"SELECT LAST_INSERT_ID() AS id"
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    return result
+
+def add_new_graph(graph,type):
+    option_json = json.dumps(graph.option)
+    position_json=json.dumps(graph.position)
+    sql = f"""INSERT INTO Graphs (dashboard_id,position,type,`option`,data_source)
+                VALUES ({graph.dashboard_id},'{position_json}','{type}','{option_json}','{graph.data_source}')"""
+    cursor.execute(sql)
+    conn.commit()
+    sql = f"SELECT LAST_INSERT_ID() AS id"
     cursor.execute(sql)
     result = cursor.fetchone()
     return result
