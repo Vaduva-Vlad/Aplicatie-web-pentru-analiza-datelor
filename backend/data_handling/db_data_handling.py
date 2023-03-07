@@ -42,8 +42,6 @@ def get_graph_by_dashboard_id(dashboard_id):
         graph_data_handler = GetGraphData(graph)
         data = graph_data_handler.get_data()
         graph['option']['series'][0]['data'] = data
-
-    print(result)
     return result
 
 

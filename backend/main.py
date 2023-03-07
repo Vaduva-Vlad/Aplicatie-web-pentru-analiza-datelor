@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id, user_exists, \
-    add_user, get_user, add_new_dashboard,add_new_graph
+    add_user, get_user, add_new_dashboard, add_new_graph
 from fastapi.security import OAuth2PasswordBearer
 from ProcessExcel import ProcessExcel
 from models.User import User
@@ -69,16 +69,17 @@ def excelData():
 def get_graph_for_dashboard(dashboard_id):
     return get_graph_by_dashboard_id(dashboard_id)
 
+
 @app.post("/api/graphs")
-async def add_graph(request:Request):
-    data=await request.json()
-    dashboard_id=data['dashboard_id']
-    title=data['title']
-    type=data['type']
-    data_source=data['data_source']
-    graph=Graph(dashboard_id,data_source)
-    graph.set_option(title,type)
-    return add_new_graph(graph,type)
+async def add_graph(request: Request):
+    data = await request.json()
+    dashboard_id = data['dashboard_id']
+    title = data['title']
+    type = data['type']
+    data_source = data['data_source']
+    graph = Graph(dashboard_id, data_source)
+    graph.set_option(title, type)
+    return add_new_graph(graph, type)
 
 
 @app.get("/api/dashboards/{user_id}")
@@ -103,7 +104,7 @@ async def add_dashboard(request: Request):
 
 @app.post("/api/csvupload")
 async def upload_csv(file: UploadFile):
-    with open(f"localdata/{file.filename}",'wb') as f:
-        file=file.file.read()
+    with open(f"localdata/{file.filename}", 'wb') as f:
+        file = file.file.read()
         f.write(file)
-        df=pd.read_csv(BytesIO(file))
+        df = pd.read_csv(BytesIO(file))
