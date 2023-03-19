@@ -7,6 +7,7 @@ import { Graph } from 'src/models/Graph';
 import { GraphService } from 'src/services/graph.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { AddGraphComponent } from '../add-graph/add-graph.component';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dashboard-detail',
@@ -40,7 +41,7 @@ export class DashboardDetailComponent implements OnInit {
 
   getGraphs(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.graphService.getGraphs(id).subscribe(graphs=>{this.graphs=graphs;})
+    this.graphService.getGraphs(id).subscribe(graphs=>{this.graphs=graphs;    console.log(this.graphs)})
   }
 
   openDialog(){
@@ -49,4 +50,14 @@ export class DashboardDetailComponent implements OnInit {
     dialog.componentInstance.dashboardId=id
   }
 
+  whenDropped(event: CdkDragDrop<Graph[]>){
+
+    //find a way to access the graph object from the chart component
+
+    moveItemInArray(this.graphs, 0, 2);
+    let element=event.container.element.nativeElement
+    console.log(event)
+  }
+
+  //whenEntered(event:)
 }

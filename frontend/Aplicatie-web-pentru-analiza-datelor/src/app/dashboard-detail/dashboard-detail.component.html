@@ -1,10 +1,14 @@
-<!-- <button mat-raised-button color="accent" (click)="openDialog()">Adăugare grafic</button>
-<div class="boundary">
+<button mat-raised-button color="accent" (click)="openDialog()">Adăugare grafic</button>
+<!-- <div class="boundary">
     <div *ngFor="let graph of graphs">
         <app-chart [graph]="graph"></app-chart>
     </div>
 </div> -->
 
-<div cdkDropListGroup>
-    
+<div cdkDropListGroup class="list-group">
+    <div cdkDropList (cdkDropListDropped)="whenDropped($event)"></div>
+
+    <div cdkDropList *ngFor="let graph of graphs" (cdkDropListDropped)="whenDropped($event)">
+        <app-chart [graph]="graph"></app-chart>
+    </div>
 </div>
