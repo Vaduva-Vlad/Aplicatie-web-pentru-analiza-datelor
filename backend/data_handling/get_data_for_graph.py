@@ -7,7 +7,7 @@ class GetGraphData:
         self.graph = graph
 
     def get_data(self):
-        if self.graph['data_source'] == 'csv':
+        if self.graph['data_source'].lower() == 'csv':
             process_csv = ProcessCSV(f'localdata/{self.graph["dashboard_id"]}_{self.graph["id"]}.csv')
             if self.graph['type']=='pie':
                 data=process_csv.process_for_pie_chart()

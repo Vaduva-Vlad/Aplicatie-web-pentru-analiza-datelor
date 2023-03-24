@@ -21,7 +21,6 @@ export class ChartComponent implements OnInit {
 
   setOption(){
     this.option=<EChartsOption>this.graph?.option
-    console.log(this.graph)
   }
 
   dragEnd($event: CdkDragEnd) {
