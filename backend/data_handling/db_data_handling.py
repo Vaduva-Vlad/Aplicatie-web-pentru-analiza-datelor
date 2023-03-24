@@ -91,4 +91,4 @@ def add_new_graph(graph,type):
     sql = f"SELECT LAST_INSERT_ID() AS id"
     cursor.execute(sql)
     result = cursor.fetchone()
-    return result
+    return result['id']

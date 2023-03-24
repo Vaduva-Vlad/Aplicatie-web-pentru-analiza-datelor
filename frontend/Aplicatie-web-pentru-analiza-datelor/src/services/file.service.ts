@@ -10,8 +10,9 @@ export class FileService {
   constructor(private http:HttpClient) { }
   url="http://localhost:8000/api/csvupload"
 
-  uploadFile(file:File):Observable<Object>{
+  uploadFile(file:File,dashboard_id:number,graph_id:number):Observable<Object>{
     let formData:FormData=new FormData()
+    file = new File([file],`${dashboard_id}_${graph_id}.csv`)
     formData.append('file',file,file.name)
     return this.http.post<Object>(this.url,formData)
   }

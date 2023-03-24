@@ -16,7 +16,7 @@ export class GraphService {
     return this.http.get<Graph[]>(`${this.url}/${dashboard_id}`)
   }
 
-  addGraph(data:Object):Observable<Graph>{
-    return this.http.post<Graph>(this.url,data)
+  addGraph(data:Object):Observable<number>{
+    return this.http.post<number>(this.url,data)
   }
 }

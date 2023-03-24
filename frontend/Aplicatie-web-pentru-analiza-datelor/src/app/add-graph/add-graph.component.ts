@@ -24,8 +24,10 @@ export class AddGraphComponent implements OnInit {
   isLinear:boolean=true
   graphTitle:string=''
   dashboardId:number|undefined
+  graphId:number|undefined
 
   ngOnInit(): void {
+    console.log(this.dashboardId)
   }
 
   next(stepper:MatStepper){
@@ -58,8 +60,11 @@ export class AddGraphComponent implements OnInit {
   }
 
   submit(){
-    this.fileService.uploadFile(this.selectedFile!).subscribe()
     let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"data_source":this.dataSource}
-    this.graphService.addGraph(graphData).subscribe(response=>{location.reload()})
+    this.graphService.addGraph(graphData).subscribe(response=>{
+      this.graphId=response;
+      this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{location.reload()})
+    })
+    
   }
 }
