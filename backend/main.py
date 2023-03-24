@@ -1,14 +1,17 @@
-from fastapi import FastAPI, Request, Depends, HTTPException
+from fastapi import FastAPI, Request, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id, user_exists, \
-    add_user, get_user,add_new_dashboard
+    add_user, get_user, add_new_dashboard, add_new_graph
 from fastapi.security import OAuth2PasswordBearer
 from ProcessExcel import ProcessExcel
 from models.User import User
 from models.Dashboard import Dashboard
+from models.Graph import Graph
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
+from io import BytesIO
+import pandas as pd
 
 secret = 'secret'
 app = FastAPI()
@@ -67,6 +70,18 @@ def get_graph_for_dashboard(dashboard_id):
     return get_graph_by_dashboard_id(dashboard_id)
 
 
+@app.post("/api/graphs")
+async def add_graph(request: Request):
+    data = await request.json()
+    dashboard_id = data['dashboard_id']
+    title = data['title']
+    type = data['type']
+    data_source = data['data_source']
+    graph = Graph(dashboard_id, data_source)
+    graph.set_option(title, type)
+    return add_new_graph(graph, type)
+
+
 @app.get("/api/dashboards/{user_id}")
 def get_dashboards_list(user_id):
     return get_dashboards(user_id)
@@ -80,9 +95,16 @@ def get_dashboard_with_id(id):
 @app.post("/api/dashboard")
 async def add_dashboard(request: Request):
     data = await request.json()
-    user_id=data['user_id']
-    name=data['name']
-    dashboard=Dashboard(user_id,name)
-    added_dashboard=add_new_dashboard(dashboard)
+    user_id = data['user_id']
+    name = data['name']
+    dashboard = Dashboard(user_id, name)
+    added_dashboard = add_new_dashboard(dashboard)
     return added_dashboard['id']
 
+
+@app.post("/api/csvupload")
+async def upload_csv(file: UploadFile):
+    with open(f"localdata/{file.filename}", 'wb') as f:
+        file = file.file.read()
+        f.write(file)
+        df = pd.read_csv(BytesIO(file))
