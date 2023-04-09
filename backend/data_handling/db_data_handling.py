@@ -92,3 +92,8 @@ def add_new_graph(graph,type):
     cursor.execute(sql)
     result = cursor.fetchone()
     return result['id']
+
+def remove_graph(graph_id):
+    sql=f"DELETE FROM Graphs WHERE id={graph_id}"
+    cursor.execute(sql)
+    conn.commit()

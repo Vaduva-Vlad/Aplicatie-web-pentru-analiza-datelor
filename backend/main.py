@@ -1,8 +1,9 @@
 from fastapi import FastAPI, Request, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id, user_exists, \
-    add_user, get_user, add_new_dashboard, add_new_graph
+    add_user, get_user, add_new_dashboard, add_new_graph,remove_graph
 from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends
 from ProcessExcel import ProcessExcel
 from models.User import User
 from models.Dashboard import Dashboard
@@ -28,6 +29,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+oauth2=OAuth2PasswordBearer(tokenUrl="token")
+
+def check_token(r:Request):
+    try:
+        token=r.headers['Authorization'].split(' ')[1]
+        jwt.decode(token,secret,algorithms=["HS256"])
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=401, detail='Invalid token')
+    return True
 
 @app.post("/api/signup")
 async def signup(request: Request):
@@ -52,8 +63,9 @@ async def login(request: Request):
     if not user:
         raise HTTPException(status_code=400, detail="Nume de utilizator sau parolă greșită")
     if check_password_hash(user['password'], user_data['password']):
-        token = jwt.encode({'user_id': user['id'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)},
+        token = jwt.encode({'user_id': user['id'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)},
                            secret, "HS256")
+        print(token)
         return token
     else:
         raise HTTPException(status_code=400, detail="Nume de utilizator sau parolă greșită")
@@ -66,25 +78,33 @@ def excelData():
 
 
 @app.get("/api/graphs/{dashboard_id}")
-def get_graph_for_dashboard(dashboard_id):
-    return get_graph_by_dashboard_id(dashboard_id)
+def get_graph_for_dashboard(dashboard_id,authorized=Depends(check_token)):
+    if authorized:
+        return get_graph_by_dashboard_id(dashboard_id)
 
 
 @app.post("/api/graphs")
-async def add_graph(request: Request):
-    data = await request.json()
-    dashboard_id = data['dashboard_id']
-    title = data['title']
-    type = data['type']
-    data_source = data['data_source']
-    graph = Graph(dashboard_id, data_source)
-    graph.set_option(title, type)
-    return add_new_graph(graph, type)
+async def add_graph(request: Request,authorized=Depends(check_token)):
+    if authorized:
+        data = await request.json()
+        dashboard_id = data['dashboard_id']
+        title = data['title']
+        type = data['type']
+        data_source = data['data_source']
+        graph = Graph(dashboard_id, data_source)
+        graph.set_option(title, type)
+        return add_new_graph(graph, type)
+
+@app.delete("/api/graphs/{graph_id}")
+def delete_graph(graph_id,authorized=Depends(check_token)):
+    if authorized:
+        remove_graph(graph_id)
 
 
 @app.get("/api/dashboards/{user_id}")
-def get_dashboards_list(user_id):
-    return get_dashboards(user_id)
+def get_dashboards_list(user_id,authorized=Depends(check_token)):
+    if authorized:
+        return get_dashboards(user_id)
 
 
 @app.get("/api/dashboard/{id}")

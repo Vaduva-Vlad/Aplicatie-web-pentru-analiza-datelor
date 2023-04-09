@@ -13,7 +13,13 @@ export class DashboardService {
   single_url="http://localhost:8000/api/dashboard"
 
   getDashboards(user_id:number):Observable<Dashboard[]>{
-    return this.http.get<Dashboard[]>(`${this.url}/${user_id}`)
+    let httpOptions={
+      headers:new HttpHeaders({
+        'Content-type':'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem("token")
+      })
+    }
+    return this.http.get<Dashboard[]>(`${this.url}/${user_id}`,httpOptions)
   }
 
   getDashboard(id:number):Observable<Dashboard>{
