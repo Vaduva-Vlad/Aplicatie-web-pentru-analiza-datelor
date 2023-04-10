@@ -5,6 +5,7 @@ import { ViewChild } from '@angular/core';
 import { FileService } from 'src/services/file.service';
 import { GraphService } from 'src/services/graph.service';
 import { ActivatedRoute } from '@angular/router';
+import { CsvService } from 'src/services/csv.service';
 
 @Component({
   selector: 'app-add-graph',
@@ -13,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddGraphComponent implements OnInit {
 
-  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,) { }
+  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,private csvService:CsvService) { }
 
   @ViewChild('addGraph') stepper:MatStepper|undefined
   isThisStepDone:boolean=false
@@ -64,7 +65,10 @@ export class AddGraphComponent implements OnInit {
     this.graphService.addGraph(graphData).subscribe(response=>{
       this.graphId=response;
       this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{location.reload()})
-    })
-    
+    }) 
+  }
+
+  parse(){
+    this.csvService.parse(this.selectedFile!);
   }
 }
