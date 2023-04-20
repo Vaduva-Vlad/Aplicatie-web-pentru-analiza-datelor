@@ -29,6 +29,7 @@ import { AddGraphComponent } from './add-graph/add-graph.component';
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatRadioModule} from '@angular/material/radio'
 import {MatSelectModule} from '@angular/material/select'
+import {MatCheckboxModule} from '@angular/material/checkbox'
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {MatSelectModule} from '@angular/material/select'
     MatInputModule,
     MatStepperModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

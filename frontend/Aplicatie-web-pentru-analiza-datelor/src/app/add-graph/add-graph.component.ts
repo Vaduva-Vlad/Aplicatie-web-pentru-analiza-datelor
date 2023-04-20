@@ -6,6 +6,7 @@ import { FileService } from 'src/services/file.service';
 import { GraphService } from 'src/services/graph.service';
 import { ActivatedRoute } from '@angular/router';
 import { CsvService } from 'src/services/csv.service';
+import { keyable } from 'src/models/keyable';
 
 @Component({
   selector: 'app-add-graph',
@@ -26,9 +27,10 @@ export class AddGraphComponent implements OnInit {
   graphTitle:string=''
   dashboardId:number|undefined
   graphId:number|undefined
+  availableColumns:keyable={}
+  columnsList:string[]=[]
 
   ngOnInit(): void {
-    console.log(this.dashboardId)
   }
 
   next(stepper:MatStepper){
@@ -69,6 +71,19 @@ export class AddGraphComponent implements OnInit {
   }
 
   parse(){
-    this.csvService.parse(this.selectedFile!);
+    let columns:string[][]=[]
+    let columnNames:string[]=[]
+    this.csvService.parse(this.selectedFile!).subscribe(result=>{
+      columns=result;
+      for(let column of columns){
+        columnNames.push(column[0])
+        this.availableColumns[column[0]]=false
+      }
+      this.columnsList=columnNames
+    })
+  }
+
+  updateColumnsList(column:string){
+    this.availableColumns[column]=!this.availableColumns[column]
   }
 }

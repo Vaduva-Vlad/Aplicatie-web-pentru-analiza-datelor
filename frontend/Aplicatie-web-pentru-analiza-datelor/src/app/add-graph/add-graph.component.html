@@ -41,6 +41,12 @@
     </mat-step>
 
     <mat-step label="Alegeți coloanele">
+        Alegeți coloanele care vor fi folosite pentru crearea graficului:
+        <div style="margin-top:10px;margin-bottom:10px">
+            <div *ngFor="let column of columnsList">
+                <mat-checkbox (change)="updateColumnsList(column)">{{column}}</mat-checkbox>
+            </div>
+        </div>
         <button mat-raised-button color="primary" (click)="submit()">Terminat</button>
     </mat-step>
 
