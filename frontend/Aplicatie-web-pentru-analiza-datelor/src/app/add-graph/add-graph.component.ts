@@ -5,6 +5,8 @@ import { ViewChild } from '@angular/core';
 import { FileService } from 'src/services/file.service';
 import { GraphService } from 'src/services/graph.service';
 import { ActivatedRoute } from '@angular/router';
+import { CsvService } from 'src/services/csv.service';
+import { keyable } from 'src/models/keyable';
 
 @Component({
   selector: 'app-add-graph',
@@ -13,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddGraphComponent implements OnInit {
 
-  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,) { }
+  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,private csvService:CsvService) { }
 
   @ViewChild('addGraph') stepper:MatStepper|undefined
   isThisStepDone:boolean=false
@@ -25,9 +27,10 @@ export class AddGraphComponent implements OnInit {
   graphTitle:string=''
   dashboardId:number|undefined
   graphId:number|undefined
+  availableColumns:keyable={}
+  columnsList:string[]=[]
 
   ngOnInit(): void {
-    console.log(this.dashboardId)
   }
 
   next(stepper:MatStepper){
@@ -64,7 +67,23 @@ export class AddGraphComponent implements OnInit {
     this.graphService.addGraph(graphData).subscribe(response=>{
       this.graphId=response;
       this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{location.reload()})
+    }) 
+  }
+
+  parse(){
+    let columns:string[][]=[]
+    let columnNames:string[]=[]
+    this.csvService.parse(this.selectedFile!).subscribe(result=>{
+      columns=result;
+      for(let column of columns){
+        columnNames.push(column[0])
+        this.availableColumns[column[0]]=false
+      }
+      this.columnsList=columnNames
     })
-    
+  }
+
+  updateColumnsList(column:string){
+    this.availableColumns[column]=!this.availableColumns[column]
   }
 }
