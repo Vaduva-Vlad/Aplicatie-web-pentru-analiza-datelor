@@ -11,7 +11,9 @@ class GetGraphData:
             process_csv = ProcessCSV(f'localdata/{self.graph["dashboard_id"]}_{self.graph["id"]}.csv')
             if self.graph['type']=='pie':
                 data=process_csv.process_for_pie_chart()
-                return data
+            elif self.graph['type']=='line':
+                data=process_csv.process_for_line_chart()
+        return data
 
 
 if __name__ == '__main__':

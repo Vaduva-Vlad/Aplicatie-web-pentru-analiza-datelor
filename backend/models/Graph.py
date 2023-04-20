@@ -7,33 +7,54 @@ class Graph:
         self.option = option
 
     def set_option(self, title, type):
-        self.option = {
-            "title": {
-                "left": "center",
-                "text": title
-            },
-            "legend": {
-                "left": "left",
-                "orient": "vertical"
-            },
-            "series": [
-                {
-                    "data": [
+        if type=='pie':
+            self.option = {
+                "title": {
+                    "left": "center",
+                    "text": title
+                },
+                "legend": {
+                    "left": "left",
+                    "orient": "vertical"
+                },
+                "series": [
+                    {
+                        "data": [
 
-                    ],
-                    "name": "Access From",
-                    "type": type,
-                    "radius": "50%",
-                    "emphasis": {
-                        "itemStyle": {
-                            "shadowBlur": 10,
-                            "shadowColor": "rgba(0, 0, 0, 0.5)",
-                            "shadowOffsetX": 0
+                        ],
+                        "name": "Access From",
+                        "type": type,
+                        "radius": "50%",
+                        "emphasis": {
+                            "itemStyle": {
+                                "shadowBlur": 10,
+                                "shadowColor": "rgba(0, 0, 0, 0.5)",
+                                "shadowOffsetX": 0
+                            }
                         }
                     }
+                ],
+                "tooltip": {
+                    "trigger": "item"
                 }
-            ],
-            "tooltip": {
-                "trigger": "item"
             }
-        }
+        elif type=='line':
+            self.option = {
+                  'title': {
+                    'text': title,
+                    'left': 'center'
+                  },
+                  'xAxis': {
+                    'type': 'category',
+                    'data': []
+                  },
+                  'yAxis': {
+                    'type': 'value'
+                  },
+                  'series': [
+                    {
+                      'data': [],
+                      'type': 'line'
+                    }
+                  ]
+                }
