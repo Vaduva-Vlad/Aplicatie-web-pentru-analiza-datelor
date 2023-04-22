@@ -1,13 +1,13 @@
 class Graph:
-    def __init__(self, dashboard_id,data_source, id=None, option=None, position={"x": 100, "y": 100}):
+    def __init__(self, dashboard_id, data_source, id=None, option=None, position={"x": 100, "y": 100}):
         self.id = id
         self.dashboard_id = dashboard_id
-        self.data_source=data_source
+        self.data_source = data_source
         self.position = position
         self.option = option
 
     def set_option(self, title, type):
-        if type=='pie':
+        if type == 'pie':
             self.option = {
                 "title": {
                     "left": "center",
@@ -38,23 +38,36 @@ class Graph:
                     "trigger": "item"
                 }
             }
-        elif type=='line':
+        elif type == 'line' or type == 'bar':
             self.option = {
-                  'title': {
+                'title': {
                     'text': title,
                     'left': 'center'
-                  },
-                  'xAxis': {
+                },
+                'xAxis': {
                     'type': 'category',
                     'data': []
-                  },
-                  'yAxis': {
+                },
+                'yAxis': {
                     'type': 'value'
-                  },
-                  'series': [
+                },
+                'series': [
                     {
-                      'data': [],
-                      'type': 'line'
+                        'data': [],
+                        'type': type
                     }
-                  ]
-                }
+                ]
+            }
+
+        elif type=='scatter':
+            self.option={
+                'xAxis':{},
+                'yAxis':{},
+                'series':[
+                    {
+                        'symbolSize':10,
+                        'data':[],
+                        'type':type
+                    }
+                ]
+            }

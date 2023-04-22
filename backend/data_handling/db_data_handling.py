@@ -43,14 +43,19 @@ def get_graph_by_dashboard_id(dashboard_id):
             graph_data_handler = GetGraphData(graph)
             data = graph_data_handler.get_data()
             graph['option']['series'][0]['data'] = data
-        elif graph['type']=='line':
+        elif graph['type']=='line' or graph['type']=='bar':
             graph["option"] = json.loads(graph['option'])
             graph["position"] = json.loads(graph['position'])
             graph_data_handler = GetGraphData(graph)
             data = graph_data_handler.get_data()
             graph['option']['xAxis']['data']=data['xaxis']
             graph['option']['series'][0]['data']=data['data']
-            print(graph['option'])
+        elif graph['type']=='scatter':
+            graph["option"] = json.loads(graph['option'])
+            graph["position"] = json.loads(graph['position'])
+            graph_data_handler = GetGraphData(graph)
+            data = graph_data_handler.get_data()
+            graph['option']['series'][0]['data']=data
 
     return result
 

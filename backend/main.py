@@ -13,6 +13,7 @@ import jwt
 import datetime
 from io import BytesIO
 import pandas as pd
+import os
 
 secret = 'secret'
 app = FastAPI()
@@ -95,10 +96,12 @@ async def add_graph(request: Request,authorized=Depends(check_token)):
         graph.set_option(title, type)
         return add_new_graph(graph, type)
 
-@app.delete("/api/graphs/{graph_id}")
-def delete_graph(graph_id,authorized=Depends(check_token)):
+@app.delete("/api/graphs/{graph_id}/{dashboard_id}")
+def delete_graph(graph_id,dashboard_id,authorized=Depends(check_token)):
+    print('here')
     if authorized:
         remove_graph(graph_id)
+        os.remove()
 
 
 @app.get("/api/dashboards/{user_id}")

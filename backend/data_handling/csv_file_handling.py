@@ -15,7 +15,7 @@ class ProcessCSV:
 
         return result
 
-    def process_for_line_chart(self):
+    def process_for_line_and_bar_chart(self):
         xaxis=[]
         data=[]
 
@@ -26,6 +26,14 @@ class ProcessCSV:
                 xaxis.append(row[1])
             result={'xaxis':xaxis,'data':data}
 
+        return result
+
+    def process_for_scatter_chart(self):
+        result=[]
+        with open(self.filename,'r') as file:
+            reader=csv.reader(file)
+            for row in reader:
+                result.append(row)
         return result
 
 

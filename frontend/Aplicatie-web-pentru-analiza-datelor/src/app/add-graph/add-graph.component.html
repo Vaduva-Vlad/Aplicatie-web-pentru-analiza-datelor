@@ -6,14 +6,17 @@
             <input matInput [(ngModel)]="graphTitle">
         </mat-form-field>
         <br>
-        <button mat-raised-button class="chart-type-button" (click)="onGraphSelect(addGraph,'pie')">
+        <button mat-raised-button matTooltip="Pie chart" class="chart-type-button" (click)="onGraphSelect(addGraph,'pie')">
             <mat-icon class="chart-type-icon">pie_chart</mat-icon>
         </button>
-        <button mat-raised-button class="chart-type-button" (click)="onGraphSelect(addGraph,'line')">
+        <button mat-raised-button matTooltip="Line chart" class="chart-type-button" (click)="onGraphSelect(addGraph,'line')">
             <mat-icon class="chart-type-icon">show_chart</mat-icon>
         </button>
-        <button mat-raised-button class="chart-type-button" (click)="onGraphSelect(addGraph,'bar')">
+        <button mat-raised-button matTooltip="Bar chart" class="chart-type-button" (click)="onGraphSelect(addGraph,'bar')">
             <mat-icon class="chart-type-icon">bar_chart</mat-icon>
+        </button>
+        <button mat-raised-button matTooltip="Scatter chart" class="chart-type-button" (click)="onGraphSelect(addGraph,'scatter')">
+            <mat-icon class="chart-type-icon">scatter_plot</mat-icon>
         </button>
 
     </mat-step>
