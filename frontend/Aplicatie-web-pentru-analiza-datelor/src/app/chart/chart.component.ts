@@ -31,7 +31,7 @@ export class ChartComponent implements OnInit {
   }
 
   deleteGraph(){
-    this.graphService.deleteGraph(this.graphId!).subscribe()
+    this.graphService.deleteGraph(this.graphId!,this.graph?.dashboard_id!).subscribe()
     location.reload()
   }
 
