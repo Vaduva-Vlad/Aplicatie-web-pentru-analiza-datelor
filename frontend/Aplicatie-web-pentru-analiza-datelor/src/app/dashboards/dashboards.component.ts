@@ -18,10 +18,12 @@ export class DashboardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDashboards()
+    console.log(localStorage.getItem('user_id'))
   }
 
   getDashboards(){
-    this.dashboardService.getDashboards(1).subscribe(dashboards=>{
+    let user_id:number=parseInt(localStorage.getItem('user_id')!)
+    this.dashboardService.getDashboards(user_id).subscribe(dashboards=>{
       this.dashboards=dashboards
     })
   }
