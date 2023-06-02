@@ -31,6 +31,7 @@ import {MatRadioModule} from '@angular/material/radio'
 import {MatSelectModule} from '@angular/material/select'
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatTooltipModule} from '@angular/material/tooltip'
+import {MatSnackBarModule} from '@angular/material/snack-bar'
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {MatTooltipModule} from '@angular/material/tooltip'
     MatRadioModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
