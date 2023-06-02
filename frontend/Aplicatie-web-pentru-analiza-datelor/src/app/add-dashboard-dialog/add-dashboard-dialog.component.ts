@@ -10,14 +10,14 @@ import { DashboardService } from 'src/services/dashboard.service';
 export class AddDashboardDialogComponent implements OnInit {
 
   constructor(private dashboardService:DashboardService) { }
-  @Output() closed = new EventEmitter<string>();
+  @Output() closed = new EventEmitter<boolean>();
   dashboardName:string|undefined
 
   ngOnInit(): void {
   }
 
   close(){
-    this.closed.emit('closed')
+    this.closed.emit(false)
   }
 
   addDashboard(){
