@@ -17,7 +17,7 @@
             <button mat-button (click)="addDashboardDialog()"><mat-icon>add_box</mat-icon></button>
           </span>
           <div *ngIf="displayAddDashboard">
-            <app-add-dashboard-dialog></app-add-dashboard-dialog>
+            <app-add-dashboard-dialog (closed)="changeDisplay($event)"></app-add-dashboard-dialog>
           </div>
         </mat-card-title>
         <mat-list *ngFor="let dashboard of dashboards">

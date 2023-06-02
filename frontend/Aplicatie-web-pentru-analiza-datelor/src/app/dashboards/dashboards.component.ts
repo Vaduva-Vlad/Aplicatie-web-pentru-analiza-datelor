@@ -33,4 +33,8 @@ export class DashboardsComponent implements OnInit {
   isAuthenticated():boolean{
     return this.authenticationService.isAuthenticated()
   }
+
+  changeDisplay(value:boolean){
+    this.displayAddDashboard=value
+  }
 }

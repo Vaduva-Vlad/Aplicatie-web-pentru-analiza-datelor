@@ -64,10 +64,17 @@ export class AddGraphComponent implements OnInit {
 
   submit(){
     let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"data_source":this.dataSource}
-    this.graphService.addGraph(graphData).subscribe(response=>{
-      this.graphId=response;
-      this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{location.reload()})
-    }) 
+
+    if(this.dataSource=="CSV"){
+      this.graphService.addGraph(graphData).subscribe(response=>{
+        this.graphId=response;
+        this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{
+          this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId}).subscribe()
+        })
+      }) 
+    }
+
+    
   }
 
   parse(){
