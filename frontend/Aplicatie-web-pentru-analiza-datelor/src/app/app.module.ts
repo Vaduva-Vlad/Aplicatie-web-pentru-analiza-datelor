@@ -30,6 +30,7 @@ import {MatStepperModule} from '@angular/material/stepper'
 import {MatRadioModule} from '@angular/material/radio'
 import {MatSelectModule} from '@angular/material/select'
 import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatTooltipModule} from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
     MatStepperModule,
     MatRadioModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

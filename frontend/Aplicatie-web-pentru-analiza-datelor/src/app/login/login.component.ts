@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     let data={"username":this.username,"password":this.password}
-    this.authenticationService.login(data).subscribe(response=>this.authenticationService.saveUserData(response))
+    this.authenticationService.login(data).subscribe(response=>{this.authenticationService.saveUserData(response)})
   }
 
 }

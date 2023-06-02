@@ -32,13 +32,13 @@ export class GraphService {
     return this.http.post<number>(this.url,data,httpOptions)
   }
 
-  deleteGraph(graph_id:number){
+  deleteGraph(graph_id:number,dashboard_id:number):Observable<unknown>{
     let httpOptions={
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'Authorization': 'Bearer '+localStorage.getItem("token")
       })
     }
-    this.http.delete(`${this.url}/${graph_id}`,httpOptions)
+    return this.http.delete(`${this.url}/${graph_id}/${dashboard_id}`,httpOptions)
   }
 }

@@ -13,6 +13,8 @@ import jwt
 import datetime
 from io import BytesIO
 import pandas as pd
+import os
+import csv
 
 secret = 'secret'
 app = FastAPI()
@@ -95,10 +97,11 @@ async def add_graph(request: Request,authorized=Depends(check_token)):
         graph.set_option(title, type)
         return add_new_graph(graph, type)
 
-@app.delete("/api/graphs/{graph_id}")
-def delete_graph(graph_id,authorized=Depends(check_token)):
+@app.delete("/api/graphs/{graph_id}/{dashboard_id}")
+def delete_graph(graph_id,dashboard_id,authorized=Depends(check_token)):
     if authorized:
         remove_graph(graph_id)
+        os.remove(f"localdata/{dashboard_id}_{graph_id}.csv")
 
 
 @app.get("/api/dashboards/{user_id}")
@@ -128,3 +131,21 @@ async def upload_csv(file: UploadFile):
         file = file.file.read()
         f.write(file)
         df = pd.read_csv(BytesIO(file))
+
+@app.post("/api/columns")
+async def edit_csv(request:Request):
+    data=await request.json()
+
+    dashboard_id=data['dashboard_id']
+    graph_id=data['graph_id']
+    columns=data['columns']
+
+    data=pd.read_csv(f'localdata/{dashboard_id}_{graph_id}.csv')
+    for column in columns:
+        pass
+        if columns[column]==False:
+            data.drop(column,inplace=True,axis=1)
+
+    data.to_csv(f'localdata/{dashboard_id}_{graph_id}.csv',index=False)
+
+    return "Success"
