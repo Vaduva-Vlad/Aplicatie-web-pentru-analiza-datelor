@@ -31,7 +31,8 @@ import {MatRadioModule} from '@angular/material/radio'
 import {MatSelectModule} from '@angular/material/select'
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatTooltipModule} from '@angular/material/tooltip'
-import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { LoginNotificationComponent } from './login-notification/login-notification.component'
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar'
     AddDashboardDialogComponent,
     RegisterComponent,
     LoginComponent,
-    AddGraphComponent
+    AddGraphComponent,
+    LoginNotificationComponent
   ],
   imports: [
     BrowserModule,

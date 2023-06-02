@@ -35,10 +35,13 @@ export class AppComponent {
   }
 
   authenticated(){
-    let token=localStorage.getItem("token")
-    if(token!="" && token!=null){
+    if(this.authenticationService.isAuthenticated()){
       this.display=false
     }
+  }
+
+  isAuthenticated(){
+    return this.authenticationService.isAuthenticated()
   }
 
   logout(){
