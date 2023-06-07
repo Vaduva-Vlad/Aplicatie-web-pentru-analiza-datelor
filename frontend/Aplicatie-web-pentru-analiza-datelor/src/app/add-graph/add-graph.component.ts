@@ -7,6 +7,7 @@ import { GraphService } from 'src/services/graph.service';
 import { ActivatedRoute } from '@angular/router';
 import { CsvService } from 'src/services/csv.service';
 import { keyable } from 'src/models/keyable';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-graph',
@@ -15,7 +16,7 @@ import { keyable } from 'src/models/keyable';
 })
 export class AddGraphComponent implements OnInit {
 
-  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,private csvService:CsvService) { }
+  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,private csvService:CsvService,private snackbar:MatSnackBar) { }
 
   @ViewChild('addGraph') stepper:MatStepper|undefined
   isThisStepDone:boolean=false
@@ -62,19 +63,41 @@ export class AddGraphComponent implements OnInit {
     this.selectedFile!=null
   }
 
-  submit(){
-    let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"data_source":this.dataSource}
-
-    if(this.dataSource=="CSV"){
-      this.graphService.addGraph(graphData).subscribe(response=>{
-        this.graphId=response;
-        this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{
-          this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId}).subscribe()
-        })
-      }) 
+  validateColumnCount(){
+    let selectedColumns:number=0
+    Object.keys(this.availableColumns).forEach((key:string) => {
+      if(this.availableColumns[key]==true){
+        selectedColumns++;
+      }
+    });
+    if(selectedColumns==2){
+      return true
     }
+    return false
+  }
 
-    
+  submit(){
+    if(this.validateColumnCount()){
+      let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"data_source":this.dataSource}
+
+      if(this.dataSource=="CSV"){
+        this.graphService.addGraph(graphData).subscribe(response=>{
+          this.graphId=response;
+          this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{
+            this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId}).subscribe()
+          })
+        }) 
+      }
+      else if (this.dataSource=="SQL"){
+        
+      }
+      location.reload()
+    }
+    else{
+      this.snackbar.open("Trebuie să selectați 2 coloane!","",{
+        duration:3000
+      })
+    }
   }
 
   parse(){

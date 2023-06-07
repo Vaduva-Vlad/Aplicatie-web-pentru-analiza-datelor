@@ -8,6 +8,7 @@ import { GraphService } from 'src/services/graph.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { AddGraphComponent } from '../add-graph/add-graph.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { AuthenticationService } from 'src/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard-detail',
@@ -21,16 +22,22 @@ export class DashboardDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private graphService:GraphService,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private authenticationService:AuthenticationService
     ) { }
 
   dashboard:Dashboard|undefined;
   graphs:Graph[]=[]
 
   ngOnInit(): void {
-    this.getDashboard()
+    if(this.isAuthenticated())
+      this.getDashboard()
   }
   
+  isAuthenticated():boolean{
+    return this.authenticationService.isAuthenticated()
+  }
+
   getDashboard(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.dashboardService.getDashboard(id).subscribe(dashboard=>{
