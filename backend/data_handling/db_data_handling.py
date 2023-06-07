@@ -75,7 +75,7 @@ def add_user(user):
     cursor.execute(sql)
     conn.commit()
 
-    sql = f"""SELECT * FROM Users WHERE email='{user.email}'"""
+    sql = f"""SELECT id,username,email FROM Users WHERE email='{user.email}'"""
     cursor.execute(sql)
     result=cursor.fetchone()
     return result

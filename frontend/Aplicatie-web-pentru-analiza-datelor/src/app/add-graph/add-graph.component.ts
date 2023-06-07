@@ -88,6 +88,9 @@ export class AddGraphComponent implements OnInit {
           })
         }) 
       }
+      else if (this.dataSource=="SQL"){
+        
+      }
       location.reload()
     }
     else{
