@@ -67,7 +67,6 @@ async def login(request: Request):
     if check_password_hash(user['password'], user_data['password']):
         token = jwt.encode({'user_id': user['id'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)},
                            secret, "HS256")
-        print(token)
         return token
     else:
         raise HTTPException(status_code=400, detail="Nume de utilizator sau parolă greșită")
