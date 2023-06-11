@@ -23,10 +23,22 @@ export class DashboardService {
   }
 
   getDashboard(id:number):Observable<Dashboard>{
-    return this.http.get<Dashboard>(`${this.single_url}/${id}`)
+    let httpOptions={
+      headers:new HttpHeaders({
+        'Content-type':'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem("token")
+      })
+    }
+    return this.http.get<Dashboard>(`${this.single_url}/${id}`,httpOptions)
   }
 
   addDashboard(dashboard:Object):Observable<Dashboard>{
-    return this.http.post<Dashboard>(this.single_url,dashboard)
+    let httpOptions={
+      headers:new HttpHeaders({
+        'Content-type':'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem("token")
+      })
+    }
+    return this.http.post<Dashboard>(this.single_url,dashboard,httpOptions)
   }
 }

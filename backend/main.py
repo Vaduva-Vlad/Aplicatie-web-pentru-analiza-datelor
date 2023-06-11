@@ -110,18 +110,20 @@ def get_dashboards_list(user_id,authorized=Depends(check_token)):
 
 
 @app.get("/api/dashboard/{id}")
-def get_dashboard_with_id(id):
-    return get_dashboard_by_id(id)
+def get_dashboard_with_id(id,authorized=Depends(check_token)):
+    if authorized:
+        return get_dashboard_by_id(id)
 
 
 @app.post("/api/dashboard")
-async def add_dashboard(request: Request):
-    data = await request.json()
-    user_id = data['user_id']
-    name = data['name']
-    dashboard = Dashboard(user_id, name)
-    added_dashboard = add_new_dashboard(dashboard)
-    return added_dashboard['id']
+async def add_dashboard(request: Request,authorized=Depends(check_token)):
+    if authorized:
+        data = await request.json()
+        user_id = data['user_id']
+        name = data['name']
+        dashboard = Dashboard(user_id, name)
+        added_dashboard = add_new_dashboard(dashboard)
+        return added_dashboard['id']
 
 
 @app.post("/api/csvupload")
