@@ -7,7 +7,7 @@ class UserDBConnection:
         self.SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}"
         self.engine = create_engine(self.SQLALCHEMY_DATABASE_URL, pool_recycle=3600)
         self.conn = self.engine.raw_connection()
-        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
+        self.cursor = self.conn.cursor()
 
     def get_data(self,table,column1,column2):
         sql = f"""SELECT `{column1}`,`{column2}` FROM {table};"""

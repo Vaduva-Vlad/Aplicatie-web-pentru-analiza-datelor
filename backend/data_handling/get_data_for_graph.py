@@ -1,5 +1,6 @@
 import csv
 from .csv_file_handling import ProcessCSV
+from .process_db_data import DBDataProcessing
 
 
 class GetGraphData:
@@ -7,15 +8,17 @@ class GetGraphData:
         self.graph = graph
 
     def get_data(self):
-        data=None
+        data = None
         if self.graph['data_source'].lower() == 'csv':
             process_csv = ProcessCSV(f'localdata/{self.graph["dashboard_id"]}_{self.graph["id"]}.csv')
-            if self.graph['type']=='pie':
-                data=process_csv.process_for_pie_chart()
-            elif self.graph['type']=='line' or self.graph['type']=='bar':
-                data=process_csv.process_for_line_and_bar_chart()
-            elif self.graph['type']=='scatter':
-                data=process_csv.process_for_scatter_chart()
+            if self.graph['type'] == 'pie':
+                data = process_csv.process_for_pie_chart()
+            elif self.graph['type'] == 'line' or self.graph['type'] == 'bar':
+                data = process_csv.process_for_line_and_bar_chart()
+            elif self.graph['type'] == 'scatter':
+                data = process_csv.process_for_scatter_chart()
+        # elif self.graph['data_source'].lower() == 'sql':
+        #     process_sql = DBDataProcessing()
         return data
 
 
