@@ -28,6 +28,10 @@ export class DashboardsComponent implements OnInit {
     })
   }
 
+  deleteDashboard(id:number){
+    this.dashboardService.deleteGraph(id).subscribe(response=>location.reload())
+  }
+
   addDashboardDialog(): void {
     this.displayAddDashboard=!this.displayAddDashboard
   }

@@ -33,7 +33,7 @@ with connection:
         `option` JSON NOT NULL,
         `data_source` VARCHAR(25),
         PRIMARY KEY(`id`),
-        FOREIGN KEY (dashboard_id) REFERENCES Dashboards(id)
+        FOREIGN KEY (dashboard_id) REFERENCES Dashboards(id) ON DELETE CASCADE
         )
         AUTO_INCREMENT=1"""
         cursor.execute(sql)

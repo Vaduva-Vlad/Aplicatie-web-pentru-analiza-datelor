@@ -41,4 +41,14 @@ export class DashboardService {
     }
     return this.http.post<Dashboard>(this.single_url,dashboard,httpOptions)
   }
+
+  deleteGraph(id:number):Observable<unknown>{
+    let httpOptions={
+      headers:new HttpHeaders({
+        'Content-type':'application/json',
+        'Authorization': 'Bearer '+localStorage.getItem("token")
+      })
+    }
+    return this.http.delete(`${this.single_url}/${id}`,httpOptions)
+  }
 }

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id, user_exists, \
-    add_user, get_user, add_new_dashboard, add_new_graph,remove_graph
+    add_user, get_user, add_new_dashboard, add_new_graph,remove_graph,remove_dashboard
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends
 from ProcessExcel import ProcessExcel
@@ -114,6 +114,10 @@ def get_dashboard_with_id(id,authorized=Depends(check_token)):
     if authorized:
         return get_dashboard_by_id(id)
 
+@app.delete("/api/dashboard/{id}")
+def delete_dashboard(id,authorized=Depends(check_token)):
+    if authorized:
+        remove_dashboard(id)
 
 @app.post("/api/dashboard")
 async def add_dashboard(request: Request,authorized=Depends(check_token)):

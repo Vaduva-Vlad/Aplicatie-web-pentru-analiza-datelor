@@ -81,17 +81,17 @@ export class AddGraphComponent implements OnInit {
       let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"data_source":this.dataSource}
 
       if(this.dataSource=="CSV"){
+        console.log("here")
         this.graphService.addGraph(graphData).subscribe(response=>{
           this.graphId=response;
           this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{
-            this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId}).subscribe()
+            this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId}).subscribe(response=>location.reload())
           })
         }) 
       }
       else if (this.dataSource=="SQL"){
         
       }
-      location.reload()
     }
     else{
       this.snackbar.open("Trebuie să selectați 2 coloane!","",{

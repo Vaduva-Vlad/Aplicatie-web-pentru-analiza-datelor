@@ -21,7 +21,12 @@
           </div>
         </mat-card-title>
         <mat-list *ngFor="let dashboard of dashboards">
-          <mat-list-item><a routerLink="/dashboard/{{dashboard.id}}">{{dashboard.name}}</a></mat-list-item>
+          <mat-list-item>
+            <button mat-button (click)="deleteDashboard(dashboard.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <a routerLink="/dashboard/{{dashboard.id}}">{{dashboard.name}}</a>
+          </mat-list-item>
           <mat-divider></mat-divider>
         </mat-list>
       </mat-card>   
