@@ -43,25 +43,21 @@ def get_graph_by_dashboard_id(dashboard_id):
     result = cursor.fetchall()
 
     for graph in result:
+        graph["option"] = json.loads(graph['option'])
+        graph["position"] = json.loads(graph['position'])
+        graph_data_handler = GetGraphData(graph)
+        data = graph_data_handler.get_data()
         if graph['type'] == 'pie':
-            graph["option"] = json.loads(graph['option'])
-            graph["position"] = json.loads(graph['position'])
-            graph_data_handler = GetGraphData(graph)
-            data = graph_data_handler.get_data()
             graph['option']['series'][0]['data'] = data
         elif graph['type'] == 'line' or graph['type'] == 'bar':
-            graph["option"] = json.loads(graph['option'])
-            graph["position"] = json.loads(graph['position'])
-            graph_data_handler = GetGraphData(graph)
-            data = graph_data_handler.get_data()
             graph['option']['xAxis']['data'] = data['xaxis']
             graph['option']['series'][0]['data'] = data['data']
         elif graph['type'] == 'scatter':
-            graph["option"] = json.loads(graph['option'])
-            graph["position"] = json.loads(graph['position'])
-            graph_data_handler = GetGraphData(graph)
-            data = graph_data_handler.get_data()
             graph['option']['series'][0]['data'] = data
+        elif graph['type'] == 'waterfall':
+            graph['option']['xAxis']['data'] = data['xaxis']
+            graph['option']['series'][0]['data'] = data['series1']
+            graph['option']['series'][1]['data'] = data['series2']
 
     return result
 

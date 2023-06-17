@@ -71,7 +71,10 @@ export class AddGraphComponent implements OnInit {
       }
     });
     if(selectedColumns==2){
-      return true
+      return true;
+    }
+    else if(this.selectedGraph=="waterfall" && selectedColumns==3){
+      return true;
     }
     return false
   }

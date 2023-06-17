@@ -58,7 +58,6 @@ class Graph:
                     }
                 ]
             }
-
         elif type=='scatter':
             self.option={
                 'xAxis':{},
@@ -70,4 +69,59 @@ class Graph:
                         'type':type
                     }
                 ]
+            }
+        elif type=='waterfall':
+            self.option= {
+              title: {
+                'text': 'Waterfall Chart',
+                'subtext': 'Living Expenses in Shenzhen'
+              },
+              'tooltip': {
+                'trigger': 'axis',
+                'axisPointer': {
+                  'type': 'shadow'
+                }
+              },
+              'grid': {
+                'left': '3%',
+                'right': '4%',
+                'bottom': '3%',
+                'containLabel': True
+              },
+              'xAxis': {
+                'type': 'category',
+                'splitLine': { 'show': False },
+                'data': []
+              },
+              'yAxis': {
+                'type': 'value'
+              },
+              'series': [
+                {
+                  'name': '',
+                  'type': 'bar',
+                  'stack': 'Total',
+                  'itemStyle': {
+                    'borderColor': 'transparent',
+                    'color': 'transparent'
+                  },
+                  'emphasis': {
+                    'itemStyle': {
+                      'borderColor': 'transparent',
+                      'color': 'transparent'
+                    }
+                  },
+                  'data': []
+                },
+                {
+                  'name': '',
+                  'type': 'bar',
+                  'stack': 'Total',
+                  'label': {
+                    'show': True,
+                    'position': 'inside'
+                  },
+                  'data': []
+                }
+              ]
             }

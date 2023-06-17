@@ -16,6 +16,8 @@ class GetGraphData:
                 data=process_csv.process_for_line_and_bar_chart()
             elif self.graph['type']=='scatter':
                 data=process_csv.process_for_scatter_chart()
+            elif self.graph['type']=='waterfall':
+                data=process_csv.process_for_waterfall_chart()
         return data
 
 
