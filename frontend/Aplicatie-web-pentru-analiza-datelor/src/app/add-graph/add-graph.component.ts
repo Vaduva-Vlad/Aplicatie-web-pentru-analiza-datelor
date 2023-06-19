@@ -70,10 +70,11 @@ export class AddGraphComponent implements OnInit {
         selectedColumns++;
       }
     });
-    if(selectedColumns==2){
+    if(this.selectedGraph!="waterfall" && selectedColumns==2){
       return true;
     }
     else if(this.selectedGraph=="waterfall" && selectedColumns==3){
+      console.log(selectedColumns)
       return true;
     }
     return false
@@ -97,9 +98,16 @@ export class AddGraphComponent implements OnInit {
       }
     }
     else{
-      this.snackbar.open("Trebuie să selectați 2 coloane!","",{
-        duration:3000
-      })
+      if(this.selectedGraph=="waterfall"){
+        this.snackbar.open("Trebuie să selectați 3 coloane!","",{
+          duration:3000
+        })
+      }
+      else{
+        this.snackbar.open("Trebuie să selectați 2 coloane!","",{
+          duration:3000
+        })
+      }
     }
   }
 
