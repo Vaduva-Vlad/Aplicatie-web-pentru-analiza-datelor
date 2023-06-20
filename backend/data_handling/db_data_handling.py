@@ -35,10 +35,10 @@ def remove_dashboard(id):
     conn.commit()
 
 
-def get_graph_by_dashboard_id(dashboard_id):
+def get_graph_by_dashboard_id(dashboard_id,user_id):
     # commit temporar, altfel apar randuri sterse
     conn.commit()
-    sql = f"""SELECT * FROM Graphs WHERE dashboard_id='{dashboard_id}'"""
+    sql = f"""SELECT * FROM Graphs WHERE dashboard_id='{dashboard_id}' AND user_id='{user_id}'"""
     cursor.execute(sql)
     result = cursor.fetchall()
 
@@ -104,8 +104,8 @@ def add_new_dashboard(dashboard):
 def add_new_graph(graph, type):
     option_json = json.dumps(graph.option)
     position_json = json.dumps(graph.position)
-    sql = f"""INSERT INTO Graphs (dashboard_id,position,type,`option`,data_source)
-                VALUES ({graph.dashboard_id},'{position_json}','{type}','{option_json}','{graph.data_source}')"""
+    sql = f"""INSERT INTO Graphs (dashboard_id,user_id,position,type,`option`,data_source)
+                VALUES ({graph.dashboard_id},{graph.user_id},'{position_json}','{type}','{option_json}','{graph.data_source}')"""
     cursor.execute(sql)
     conn.commit()
     sql = f"SELECT LAST_INSERT_ID() AS id"

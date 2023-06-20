@@ -12,14 +12,14 @@ export class GraphService {
 
   url="http://localhost:8000/api/graphs"
 
-  getGraphs(dashboard_id:number):Observable<Graph[]>{
+  getGraphs(dashboard_id:number,user_id:number):Observable<Graph[]>{
     let httpOptions={
       headers:new HttpHeaders({
         'Content-type':'application/json',
         'Authorization': 'Bearer '+localStorage.getItem("token")
       })
     }
-    return this.http.get<Graph[]>(`${this.url}/${dashboard_id}`,httpOptions)
+    return this.http.get<Graph[]>(`${this.url}/${user_id}/${dashboard_id}`,httpOptions)
   }
 
   addGraph(data:Object):Observable<number>{

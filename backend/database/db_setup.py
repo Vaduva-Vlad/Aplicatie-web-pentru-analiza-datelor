@@ -28,12 +28,14 @@ with connection:
         sql="""CREATE TABLE IF NOT EXISTS Graphs(
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `dashboard_id` int(11) NOT NULL,
+        `user_id` int (11) NOT NULL,
         `position` JSON NOT NULL,
         `type` VARCHAR(20),
         `option` JSON NOT NULL,
         `data_source` VARCHAR(25),
         PRIMARY KEY(`id`),
-        FOREIGN KEY (dashboard_id) REFERENCES Dashboards(id) ON DELETE CASCADE
+        FOREIGN KEY (dashboard_id) REFERENCES Dashboards(id) ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
         )
         AUTO_INCREMENT=1"""
         cursor.execute(sql)

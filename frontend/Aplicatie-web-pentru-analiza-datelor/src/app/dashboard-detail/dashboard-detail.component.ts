@@ -47,8 +47,9 @@ export class DashboardDetailComponent implements OnInit {
   }
 
   getGraphs(){
+    let user_id=parseInt(localStorage.getItem("user_id")!)
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.graphService.getGraphs(id).subscribe(graphs=>{this.graphs=graphs;})
+    this.graphService.getGraphs(id,user_id).subscribe(graphs=>{this.graphs=graphs;})
   }
 
   openDialog(){

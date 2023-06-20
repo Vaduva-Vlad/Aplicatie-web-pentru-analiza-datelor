@@ -1,7 +1,8 @@
 class Graph:
-    def __init__(self, dashboard_id, data_source, id=None, option=None, position={"x": 100, "y": 100}):
+    def __init__(self, dashboard_id, user_id, data_source, id=None, option=None, position={"x": 100, "y": 100}):
         self.id = id
         self.dashboard_id = dashboard_id
+        self.user_id=user_id
         self.data_source = data_source
         self.position = position
         self.option = option
@@ -60,6 +61,10 @@ class Graph:
             }
         elif type=='scatter':
             self.option={
+                'title': {
+                    'text': f'{title}',
+                    'left': 'center'
+                },
                 'xAxis':{},
                 'yAxis':{},
                 'series':[

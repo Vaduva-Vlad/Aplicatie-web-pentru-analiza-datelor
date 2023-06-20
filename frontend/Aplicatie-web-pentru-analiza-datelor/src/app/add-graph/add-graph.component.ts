@@ -82,10 +82,10 @@ export class AddGraphComponent implements OnInit {
 
   submit(){
     if(this.validateColumnCount()){
-      let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"data_source":this.dataSource}
+      let user_id=localStorage.getItem('user_id');
+      let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"user_id":user_id,"data_source":this.dataSource}
 
       if(this.dataSource=="CSV"){
-        console.log("here")
         this.graphService.addGraph(graphData).subscribe(response=>{
           this.graphId=response;
           this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{
