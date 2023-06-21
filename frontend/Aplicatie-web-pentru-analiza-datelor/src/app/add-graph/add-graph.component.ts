@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CsvService } from 'src/services/csv.service';
 import { keyable } from 'src/models/keyable';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { JsonService } from 'src/services/json.service';
 
 @Component({
   selector: 'app-add-graph',
@@ -16,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddGraphComponent implements OnInit {
 
-  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,private csvService:CsvService,private snackbar:MatSnackBar) { }
+  constructor(private fileService:FileService,private graphService:GraphService,private route: ActivatedRoute,private csvService:CsvService,private snackbar:MatSnackBar,private jsonService:JsonService) { }
 
   @ViewChild('addGraph') stepper:MatStepper|undefined
   isThisStepDone:boolean=false
@@ -85,10 +86,10 @@ export class AddGraphComponent implements OnInit {
       let user_id=localStorage.getItem('user_id');
       let graphData={"title":this.graphTitle,"type":this.selectedGraph,"dashboard_id":this.dashboardId,"user_id":user_id,"data_source":this.dataSource}
 
-      if(this.dataSource=="CSV"){
+      if(this.dataSource=="csv" || this.dataSource=="json"){
         this.graphService.addGraph(graphData).subscribe(response=>{
           this.graphId=response;
-          this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{
+          this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!,this.dataSource).subscribe(response=>{
             this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId,"source":this.dataSource}).subscribe(response=>location.reload())
           })
         }) 
@@ -112,19 +113,35 @@ export class AddGraphComponent implements OnInit {
   }
 
   parse(){
-    let columns:string[][]=[]
-    let columnNames:string[]=[]
-    this.csvService.parse(this.selectedFile!).subscribe(result=>{
-      columns=result;
-      for(let column of columns){
-        columnNames.push(column[0])
-        this.availableColumns[column[0]]=false
+    if(this.dataSource=="csv"){
+      let columns:string[][]=[]
+      let columnNames:string[]=[]
+      this.csvService.parse(this.selectedFile!).subscribe(result=>{
+        columns=result;
+        for(let column of columns){
+          columnNames.push(column[0])
+          this.availableColumns[column[0]]=false
+        }
+        this.columnsList=columnNames
+      })
+    }
+    else if (this.dataSource=="json"){
+      const reader=new FileReader();
+      reader.readAsText(this.selectedFile!,"UTF-8");
+      let data;
+      reader.onload=()=>{
+        data=JSON.parse(<string>reader.result!)
+        let columns=Object.keys(data);
+        for(let column of columns){
+          this.availableColumns[column]=false
+        }
+        this.columnsList=columns
       }
-      this.columnsList=columnNames
-    })
+    }
   }
 
   updateColumnsList(column:string){
     this.availableColumns[column]=!this.availableColumns[column]
+    console.log(this.availableColumns)
   }
 }

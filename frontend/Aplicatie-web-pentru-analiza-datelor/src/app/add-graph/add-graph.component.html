@@ -29,19 +29,19 @@
             <mat-label>Sursa de date</mat-label>
             <mat-select [(value)]="dataSource" (selectionChange)="resetDataSource($event)">
                 <mat-option>None</mat-option>
-                <mat-option value="CSV">CSV</mat-option>
-                <mat-option value="JSON">JSON</mat-option>
+                <mat-option value="csv">CSV</mat-option>
+                <mat-option value="json">JSON</mat-option>
             </mat-select>
         </mat-form-field>
 
         <br>
-        <div *ngIf="dataSource=='CSV'">
+        <div *ngIf="dataSource=='csv'">
             <button mat-raised-button (click)="selectFile.click()" style="margin-bottom:10px">Selectare fișier</button>
             <input hidden #selectFile type="file" accept=".csv" (change)="onSelectedFile($event)">
             {{selectedFile?.name}}
         </div>
 
-        <div *ngIf="dataSource=='JSON'">
+        <div *ngIf="dataSource=='json'">
             <button mat-raised-button (click)="selectFile.click()" style="margin-bottom:10px">Selectare fișier</button>
             <input hidden #selectFile type="file" accept=".json" (change)="onSelectedFile($event)">
             {{selectedFile?.name}}

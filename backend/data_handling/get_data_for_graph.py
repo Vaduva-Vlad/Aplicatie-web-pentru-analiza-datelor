@@ -1,6 +1,6 @@
 import csv
 from .csv_file_handling import ProcessCSV
-
+from.json_file_handling import ProcessJSON
 
 class GetGraphData:
     def __init__(self, graph):
@@ -18,6 +18,16 @@ class GetGraphData:
                 data=process_csv.process_for_scatter_chart()
             elif self.graph['type']=='waterfall':
                 data=process_csv.process_for_waterfall_chart()
+        elif self.graph['data_source'].lower()=='json':
+            process_json=ProcessJSON(f'localdata/{self.graph["dashboard_id"]}_{self.graph["id"]}.json')
+            if self.graph['type']=='pie':
+                data=process_json.process_for_pie_chart()
+            elif self.graph['type']=='line' or self.graph['type']=='bar':
+                data=process_json.process_for_line_and_bar_chart()
+            elif self.graph['type']=='scatter':
+                data=process_json.process_for_scatter_chart()
+            elif self.graph['type']=='waterfall':
+                data=process_json.process_for_waterfall_chart()
         return data
 
 

@@ -14,7 +14,6 @@ class ProcessCSV:
             reader = csv.reader(file)
             for row in reader:
                 result.append({'value': row[0], 'name': row[1]})
-
         return result
 
     def process_for_line_and_bar_chart(self):
@@ -50,6 +49,7 @@ class ProcessCSV:
                 series1.append(row[1])
                 series2.append(row[2])
             result = {"xaxis": xaxis, "series1": series1, "series2": series2}
+        print(result)
         return result
 
 

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id, user_exists, \
-    add_user, get_user, add_new_dashboard, add_new_graph,remove_graph,remove_dashboard,dashboard_belongs_to_user
+    add_user, get_user, add_new_dashboard, add_new_graph, remove_graph, remove_dashboard, dashboard_belongs_to_user
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends
 from ProcessExcel import ProcessExcel
@@ -12,9 +12,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
 from io import BytesIO
+import json
 import pandas as pd
 import os
-import csv
 
 secret = 'secret'
 app = FastAPI()
@@ -31,16 +31,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-oauth2=OAuth2PasswordBearer(tokenUrl="token")
+oauth2 = OAuth2PasswordBearer(tokenUrl="token")
 
-def check_token(r:Request):
+
+def check_token(r: Request):
     try:
-        token=r.headers['Authorization'].split(' ')[1]
-        user_id=jwt.decode(token,secret,algorithms=["HS256"])['user_id']
+        token = r.headers['Authorization'].split(' ')[1]
+        user_id = jwt.decode(token, secret, algorithms=["HS256"])['user_id']
     except Exception as e:
         print(e)
         raise HTTPException(status_code=401, detail='Invalid token')
-    return True,user_id
+    return True, user_id
+
 
 @app.post("/api/signup")
 async def signup(request: Request):
@@ -73,53 +75,59 @@ async def login(request: Request):
 
 
 @app.get("/api/graphs/{user_id}/{dashboard_id}")
-def get_graph_for_dashboard(user_id,dashboard_id,authorized=Depends(check_token)):
-    belongs=dashboard_belongs_to_user(dashboard_id,user_id)
+def get_graph_for_dashboard(user_id, dashboard_id, authorized=Depends(check_token)):
+    belongs = dashboard_belongs_to_user(dashboard_id, user_id)
     if authorized[0] and belongs:
-        return get_graph_by_dashboard_id(dashboard_id,user_id)
+        return get_graph_by_dashboard_id(dashboard_id, user_id)
 
 
 @app.post("/api/graphs")
-async def add_graph(request: Request,authorized=Depends(check_token)):
+async def add_graph(request: Request, authorized=Depends(check_token)):
     if authorized[0]:
         data = await request.json()
         dashboard_id = data['dashboard_id']
-        user_id=data['user_id']
+        user_id = data['user_id']
         title = data['title']
         type = data['type']
         data_source = data['data_source']
-        graph = Graph(dashboard_id,user_id, data_source)
+        graph = Graph(dashboard_id, user_id, data_source)
         graph.set_option(title, type)
         return add_new_graph(graph, type)
 
+
 @app.delete("/api/graphs/{graph_id}/{dashboard_id}")
-def delete_graph(graph_id,dashboard_id,authorized=Depends(check_token)):
+def delete_graph(graph_id, dashboard_id, authorized=Depends(check_token)):
     if authorized[0]:
         remove_graph(graph_id)
-        os.remove(f"localdata/{dashboard_id}_{graph_id}.csv")
+        try:
+            os.remove(f"localdata/{dashboard_id}_{graph_id}.csv")
+        except:
+            os.remove(f"localdata/{dashboard_id}_{graph_id}.json")
 
 
 @app.get("/api/dashboards/{user_id}")
-def get_dashboards_list(user_id,authorized=Depends(check_token)):
+def get_dashboards_list(user_id, authorized=Depends(check_token)):
     if authorized[0]:
         return get_dashboards(user_id)
 
 
 @app.get("/api/dashboard/{id}")
-def get_dashboard_with_id(id,authorized=Depends(check_token)):
+def get_dashboard_with_id(id, authorized=Depends(check_token)):
     if authorized[0]:
         return get_dashboard_by_id(id)
 
+
 @app.delete("/api/dashboard/{id}")
-def delete_dashboard(id,authorized=Depends(check_token)):
+def delete_dashboard(id, authorized=Depends(check_token)):
     if authorized[0]:
         remove_dashboard(id)
         for file in os.listdir("localdata"):
             if file.startswith(str(id)):
                 os.remove(f'localdata/{file}')
 
+
 @app.post("/api/dashboard")
-async def add_dashboard(request: Request,authorized=Depends(check_token)):
+async def add_dashboard(request: Request, authorized=Depends(check_token)):
     if authorized[0]:
         data = await request.json()
         user_id = data['user_id']
@@ -135,24 +143,30 @@ async def upload_file(file: UploadFile):
         file = file.file.read()
         f.write(file)
 
+
 @app.post("/api/columns")
-async def edit_csv(request:Request):
-    data=await request.json()
+async def edit_file(request: Request):
+    data = await request.json()
 
-    dashboard_id=data['dashboard_id']
-    graph_id=data['graph_id']
-    columns=data['columns']
-    source=data['source']
+    dashboard_id = data['dashboard_id']
+    graph_id = data['graph_id']
+    columns = data['columns']
+    source = data['source']
 
-    if source=='CSV':
-        data=pd.read_csv(f'localdata/{dashboard_id}_{graph_id}.csv')
+    if source == 'csv':
+        data = pd.read_csv(f'localdata/{dashboard_id}_{graph_id}.csv')
         for column in columns:
-            pass
-            if columns[column]==False:
-                data.drop(column,inplace=True,axis=1)
+            if columns[column] == False:
+                data.drop(column, inplace=True, axis=1)
 
-        data.to_csv(f'localdata/{dashboard_id}_{graph_id}.csv',index=False)
-    elif source=='Excel':
-        pass
+        data.to_csv(f'localdata/{dashboard_id}_{graph_id}.csv', index=False)
+    elif source == 'json':
+        with open(f'localdata/{dashboard_id}_{graph_id}.json','r+') as f:
+            data=json.load(f)
+            for column in columns:
+                if columns[column] == False:
+                    data.pop(column)
+            f.seek(0)
+            json.dump(data,f)
 
     return "Success"
