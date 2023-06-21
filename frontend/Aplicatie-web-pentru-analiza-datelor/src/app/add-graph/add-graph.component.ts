@@ -89,7 +89,7 @@ export class AddGraphComponent implements OnInit {
         this.graphService.addGraph(graphData).subscribe(response=>{
           this.graphId=response;
           this.fileService.uploadFile(this.selectedFile!,this.dashboardId!,this.graphId!).subscribe(response=>{
-            this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId}).subscribe(response=>location.reload())
+            this.fileService.sendSelectedColumns({"columns":this.availableColumns,"dashboard_id":this.dashboardId,"graph_id":this.graphId,"source":this.dataSource}).subscribe(response=>location.reload())
           })
         }) 
       }

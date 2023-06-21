@@ -14,7 +14,7 @@ export class FileService {
     let formData:FormData=new FormData()
     file = new File([file],`${dashboard_id}_${graph_id}.csv`)
     formData.append('file',file,file.name)
-    return this.http.post<Object>(`${this.url}/csvupload`,formData)
+    return this.http.post<Object>(`${this.url}/fileupload`,formData)
   }
 
   sendSelectedColumns(data:Object):Observable<Object>{

@@ -72,12 +72,6 @@ async def login(request: Request):
         raise HTTPException(status_code=400, detail="Nume de utilizator sau parolă greșită")
 
 
-@app.get("/api/exceldata")
-def excelData():
-    data = ProcessExcel('data.xlsx').process_simple_data()
-    return data
-
-
 @app.get("/api/graphs/{user_id}/{dashboard_id}")
 def get_graph_for_dashboard(user_id,dashboard_id,authorized=Depends(check_token)):
     belongs=dashboard_belongs_to_user(dashboard_id,user_id)
@@ -135,12 +129,11 @@ async def add_dashboard(request: Request,authorized=Depends(check_token)):
         return added_dashboard['id']
 
 
-@app.post("/api/csvupload")
-async def upload_csv(file: UploadFile):
+@app.post("/api/fileupload")
+async def upload_file(file: UploadFile):
     with open(f"localdata/{file.filename}", 'wb') as f:
         file = file.file.read()
         f.write(file)
-        df = pd.read_csv(BytesIO(file))
 
 @app.post("/api/columns")
 async def edit_csv(request:Request):
@@ -149,13 +142,17 @@ async def edit_csv(request:Request):
     dashboard_id=data['dashboard_id']
     graph_id=data['graph_id']
     columns=data['columns']
+    source=data['source']
 
-    data=pd.read_csv(f'localdata/{dashboard_id}_{graph_id}.csv')
-    for column in columns:
+    if source=='CSV':
+        data=pd.read_csv(f'localdata/{dashboard_id}_{graph_id}.csv')
+        for column in columns:
+            pass
+            if columns[column]==False:
+                data.drop(column,inplace=True,axis=1)
+
+        data.to_csv(f'localdata/{dashboard_id}_{graph_id}.csv',index=False)
+    elif source=='Excel':
         pass
-        if columns[column]==False:
-            data.drop(column,inplace=True,axis=1)
-
-    data.to_csv(f'localdata/{dashboard_id}_{graph_id}.csv',index=False)
 
     return "Success"

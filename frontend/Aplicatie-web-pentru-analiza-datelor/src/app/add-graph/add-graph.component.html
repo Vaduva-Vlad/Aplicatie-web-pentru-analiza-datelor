@@ -30,7 +30,7 @@
             <mat-select [(value)]="dataSource" (selectionChange)="resetDataSource($event)">
                 <mat-option>None</mat-option>
                 <mat-option value="CSV">CSV</mat-option>
-                <mat-option value="SQL">SQL</mat-option>
+                <mat-option value="JSON">JSON</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -38,6 +38,12 @@
         <div *ngIf="dataSource=='CSV'">
             <button mat-raised-button (click)="selectFile.click()" style="margin-bottom:10px">Selectare fișier</button>
             <input hidden #selectFile type="file" accept=".csv" (change)="onSelectedFile($event)">
+            {{selectedFile?.name}}
+        </div>
+
+        <div *ngIf="dataSource=='JSON'">
+            <button mat-raised-button (click)="selectFile.click()" style="margin-bottom:10px">Selectare fișier</button>
+            <input hidden #selectFile type="file" accept=".json" (change)="onSelectedFile($event)">
             {{selectedFile?.name}}
         </div>
 
