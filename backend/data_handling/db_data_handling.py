@@ -118,3 +118,10 @@ def remove_graph(graph_id):
     sql = f"DELETE FROM Graphs WHERE id={graph_id}"
     cursor.execute(sql)
     conn.commit()
+
+def dashboard_belongs_to_user(dashboard_id,user_id):
+    sql=f"SElECT user_id from Dashboards where id={dashboard_id}"
+    cursor.execute(sql)
+    result=cursor.fetchone()
+    result=result['user_id']
+    return user_id==str(result)

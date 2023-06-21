@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, get_graph_by_dashboard_id, user_exists, \
-    add_user, get_user, add_new_dashboard, add_new_graph,remove_graph,remove_dashboard
+    add_user, get_user, add_new_dashboard, add_new_graph,remove_graph,remove_dashboard,dashboard_belongs_to_user
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends
 from ProcessExcel import ProcessExcel
@@ -36,9 +36,7 @@ oauth2=OAuth2PasswordBearer(tokenUrl="token")
 def check_token(r:Request):
     try:
         token=r.headers['Authorization'].split(' ')[1]
-        print(f"token received {token}")
         user_id=jwt.decode(token,secret,algorithms=["HS256"])['user_id']
-        print(user_id)
     except Exception as e:
         print(e)
         raise HTTPException(status_code=401, detail='Invalid token')
@@ -69,7 +67,6 @@ async def login(request: Request):
     if check_password_hash(user['password'], user_data['password']):
         token = jwt.encode({'user_id': user['id'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)},
                            secret, "HS256")
-        print(f"token sent:{token}")
         return token
     else:
         raise HTTPException(status_code=400, detail="Nume de utilizator sau parolă greșită")
@@ -83,7 +80,8 @@ def excelData():
 
 @app.get("/api/graphs/{user_id}/{dashboard_id}")
 def get_graph_for_dashboard(user_id,dashboard_id,authorized=Depends(check_token)):
-    if authorized[0] and str(authorized[1])==user_id:
+    belongs=dashboard_belongs_to_user(dashboard_id,user_id)
+    if authorized[0] and belongs:
         return get_graph_by_dashboard_id(dashboard_id,user_id)
 
 
@@ -122,6 +120,9 @@ def get_dashboard_with_id(id,authorized=Depends(check_token)):
 def delete_dashboard(id,authorized=Depends(check_token)):
     if authorized[0]:
         remove_dashboard(id)
+        for file in os.listdir("localdata"):
+            if file.startswith(str(id)):
+                os.remove(f'localdata/{file}')
 
 @app.post("/api/dashboard")
 async def add_dashboard(request: Request,authorized=Depends(check_token)):
