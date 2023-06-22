@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/services/authentication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +9,7 @@ import { AuthenticationService } from 'src/services/authentication.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authenticationService:AuthenticationService) { }
+  constructor(private authenticationService:AuthenticationService,private snackbar:MatSnackBar) { }
 
   username:string|undefined
   email:string|undefined
@@ -19,7 +20,12 @@ export class RegisterComponent implements OnInit {
 
   register(){
     let data={"username":this.username,"email":this.email,"password":this.password}
-    this.authenticationService.register(data).subscribe(r=>this.authenticationService.login(data).subscribe(response=>this.authenticationService.saveUserData(response)))
+    if(this.username!?.length>0 && this.email!?.length>0 && this.password!?.length>0){
+      this.authenticationService.register(data).subscribe(r=>this.authenticationService.login(data).subscribe(response=>this.authenticationService.saveUserData(response)))
+    }
+    this.snackbar.open("Vă rugăm completați toate câmpurile!","",{
+      duration:3000
+    })
   }
 
 }

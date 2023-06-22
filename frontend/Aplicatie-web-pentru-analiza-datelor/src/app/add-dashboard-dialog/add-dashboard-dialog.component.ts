@@ -23,7 +23,6 @@ export class AddDashboardDialogComponent implements OnInit {
   addDashboard(){
     let user_id=localStorage.getItem("user_id")
     let data={"user_id":user_id,"name":this.dashboardName!}
-    this.dashboardService.addDashboard(data).subscribe()
-    location.reload()
+    this.dashboardService.addDashboard(data).subscribe(response=>location.reload())
   }
 }
