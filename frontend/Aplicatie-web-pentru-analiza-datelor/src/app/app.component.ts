@@ -49,4 +49,8 @@ export class AppComponent {
     this.router.navigate(['/home'])
     location.reload()
   }
+
+  navigateHome(){
+    this.router.navigate(['/home'])
+  }
 }

@@ -29,7 +29,7 @@
       <div id="content">
         <mat-sidenav-container style="height:100%">
           <mat-sidenav #sidenav mode="push" [(opened)]="opened" style="height:100%">
-            <span style="margin-left:10px">Sidenav content</span>
+            <button mat-raised-button color="primary" style="margin:10px" (click)="navigateHome()"><mat-icon>home</mat-icon>Acasă</button>
           </mat-sidenav>
 
           <mat-sidenav-content style="height:100%">
