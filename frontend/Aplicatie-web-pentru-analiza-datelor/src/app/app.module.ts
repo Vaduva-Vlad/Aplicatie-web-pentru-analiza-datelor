@@ -32,7 +32,8 @@ import {MatSelectModule} from '@angular/material/select'
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatTooltipModule} from '@angular/material/tooltip'
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { LoginNotificationComponent } from './login-notification/login-notification.component'
+import { LoginNotificationComponent } from './login-notification/login-notification.component';
+import { EmptyListComponent } from './empty-list/empty-list.component'
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { LoginNotificationComponent } from './login-notification/login-notificat
     RegisterComponent,
     LoginComponent,
     AddGraphComponent,
-    LoginNotificationComponent
+    LoginNotificationComponent,
+    EmptyListComponent
   ],
   imports: [
     BrowserModule,
