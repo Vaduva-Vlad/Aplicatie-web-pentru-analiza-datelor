@@ -166,7 +166,7 @@ async def edit_file(request: Request):
             for column in columns:
                 if columns[column] == False:
                     data.pop(column)
-            f.seek(0)
+        with open(f'localdata/{dashboard_id}_{graph_id}.json','w') as f:
             json.dump(data,f)
 
     return "Success"

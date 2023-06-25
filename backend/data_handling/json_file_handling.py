@@ -13,7 +13,9 @@ class ProcessJSON:
         with open(self.filename, 'r') as file:
             data = json.load(file)
             keys=list(data.keys())
-            for value in range(len(data[keys[0]])):
+            min_range=min(len(data[keys[0]]),len(data[keys[1]]))
+            print(min_range)
+            for value in range(min_range):
                 result.append({'value': data[keys[0]][value], 'name': data[keys[1]][value]})
         return result
 
