@@ -4,14 +4,12 @@ from data_handling.db_data_handling import get_dashboards, get_dashboard_by_id, 
     add_user, get_user, add_new_dashboard, add_new_graph, remove_graph, remove_dashboard, dashboard_belongs_to_user
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends
-from ProcessExcel import ProcessExcel
 from models.User import User
 from models.Dashboard import Dashboard
 from models.Graph import Graph
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
-from io import BytesIO
 import json
 import pandas as pd
 import os
