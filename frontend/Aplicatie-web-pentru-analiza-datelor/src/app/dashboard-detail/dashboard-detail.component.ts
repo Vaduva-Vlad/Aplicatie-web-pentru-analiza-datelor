@@ -7,7 +7,6 @@ import { Graph } from 'src/models/Graph';
 import { GraphService } from 'src/services/graph.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { AddGraphComponent } from '../add-graph/add-graph.component';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { AuthenticationService } from 'src/services/authentication.service';
 
 @Component({
@@ -57,15 +56,4 @@ export class DashboardDetailComponent implements OnInit {
     const dialog=this.dialog.open(AddGraphComponent)
     dialog.componentInstance.dashboardId=id
   }
-
-  whenDropped(event: CdkDragDrop<Graph[]>){
-
-    //find a way to access the graph object from the chart component
-
-    moveItemInArray(this.graphs, 0, 2);
-    let element=event.container.element.nativeElement
-    console.log(event)
-  }
-
-  //whenEntered(event:)
 }

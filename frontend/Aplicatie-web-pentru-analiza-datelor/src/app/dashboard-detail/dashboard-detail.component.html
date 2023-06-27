@@ -1,7 +1,6 @@
 <div *ngIf="isAuthenticated()">
     <button mat-raised-button color="accent" (click)="openDialog()" style="margin:10px">Adăugare grafic</button>
     <div class="list-group">
-
         <div *ngFor="let graph of graphs">
             <app-chart [graph]="graph"></app-chart>
         </div>

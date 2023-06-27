@@ -19,7 +19,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardDetailComponent } from './dashboard-detail/dashboard-detail.component';
 import { ChartComponent } from './chart/chart.component';
 import { AddDashboardDialogComponent } from './add-dashboard-dialog/add-dashboard-dialog.component'
-import {DragDropModule} from '@angular/cdk/drag-drop';
 import { RegisterComponent } from './register/register.component'
 import {MatInputModule} from '@angular/material/input';
 import { LoginComponent } from './login/login.component';
@@ -63,7 +62,6 @@ import { LoginNotificationComponent } from './login-notification/login-notificat
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
-    DragDropModule,
     MatInputModule,
     MatStepperModule,
     MatRadioModule,
