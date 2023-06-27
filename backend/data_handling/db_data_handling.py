@@ -44,7 +44,6 @@ def get_graph_by_dashboard_id(dashboard_id,user_id):
 
     for graph in result:
         graph["option"] = json.loads(graph['option'])
-        graph["position"] = json.loads(graph['position'])
         graph_data_handler = GetGraphData(graph)
         data = graph_data_handler.get_data()
         if graph['type'] == 'pie':
@@ -103,9 +102,8 @@ def add_new_dashboard(dashboard):
 
 def add_new_graph(graph, type):
     option_json = json.dumps(graph.option)
-    position_json = json.dumps(graph.position)
-    sql = f"""INSERT INTO Graphs (dashboard_id,user_id,position,type,`option`,data_source)
-                VALUES ({graph.dashboard_id},{graph.user_id},'{position_json}','{type}','{option_json}','{graph.data_source}')"""
+    sql = f"""INSERT INTO Graphs (dashboard_id,user_id,type,`option`,data_source)
+                VALUES ({graph.dashboard_id},{graph.user_id},'{type}','{option_json}','{graph.data_source}')"""
     cursor.execute(sql)
     conn.commit()
     sql = f"SELECT LAST_INSERT_ID() AS id"

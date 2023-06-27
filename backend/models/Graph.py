@@ -1,10 +1,9 @@
 class Graph:
-    def __init__(self, dashboard_id, user_id, data_source, id=None, option=None, position={"x": 100, "y": 100}):
+    def __init__(self, dashboard_id, user_id, data_source, id=None, option=None):
         self.id = id
         self.dashboard_id = dashboard_id
         self.user_id=user_id
         self.data_source = data_source
-        self.position = position
         self.option = option
 
     def set_option(self, title, type):

@@ -29,7 +29,6 @@ with connection:
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `dashboard_id` int(11) NOT NULL,
         `user_id` int (11) NOT NULL,
-        `position` JSON NOT NULL,
         `type` VARCHAR(20),
         `option` JSON NOT NULL,
         `data_source` VARCHAR(25),
