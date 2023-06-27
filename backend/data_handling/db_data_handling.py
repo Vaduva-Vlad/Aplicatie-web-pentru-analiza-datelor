@@ -5,11 +5,11 @@ from .get_data_for_graph import GetGraphData
 from sqlalchemy import create_engine
 
 connection = pymysql.connect(host='localhost',
-                             user='vlad',
-                             password='LetsPass23',
+                             user='',
+                             password='',
                              database='data_visualizer')
 
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://vlad:LetsPass23@localhost:3306/data_visualizer"
+SQLALCHEMY_DATABASE_URL = ""
 engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_recycle=3600)
 conn = engine.raw_connection()
 cursor = conn.cursor(pymysql.cursors.DictCursor)

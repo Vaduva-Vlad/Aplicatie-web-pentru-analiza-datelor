@@ -1,7 +1,7 @@
 import pymysql
 connection = pymysql.connect(host='localhost',
                              user='vlad',
-                             password='LetsPass23',
+                             password='',
                              database='data_visualizer')
 
 
