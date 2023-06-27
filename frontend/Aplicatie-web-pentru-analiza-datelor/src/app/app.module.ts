@@ -6,9 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { PiechartComponent } from './piechart/piechart/piechart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { LinechartComponent } from './linechart/linechart.component';
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
@@ -33,13 +31,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
 import {MatTooltipModule} from '@angular/material/tooltip'
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LoginNotificationComponent } from './login-notification/login-notification.component';
-import { EmptyListComponent } from './empty-list/empty-list.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    PiechartComponent,
-    LinechartComponent,
     DashboardsComponent,
     DashboardDetailComponent,
     ChartComponent,
@@ -48,7 +43,6 @@ import { EmptyListComponent } from './empty-list/empty-list.component'
     LoginComponent,
     AddGraphComponent,
     LoginNotificationComponent,
-    EmptyListComponent
   ],
   imports: [
     BrowserModule,
