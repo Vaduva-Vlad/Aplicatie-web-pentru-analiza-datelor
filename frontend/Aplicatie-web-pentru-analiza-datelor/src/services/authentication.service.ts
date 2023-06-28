@@ -7,6 +7,8 @@ import { JwtService } from 'src/services/jwt.service';
 @Injectable({
   providedIn: 'root'
 })
+
+// Funcții ce țin de autentificare
 export class AuthenticationService {
   register_url="http://localhost:8000/api/signup"
   login_url="http://localhost:8000/api/login"

@@ -5,6 +5,8 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+// Parsarea fișierelor csv
 export class CsvService {
 
   constructor(private papa:Papa) { }
