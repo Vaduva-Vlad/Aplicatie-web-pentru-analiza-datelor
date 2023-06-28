@@ -76,9 +76,9 @@ class Graph:
             }
         elif type=='waterfall':
             self.option= {
-              title: {
-                'text': 'Waterfall Chart',
-                'subtext': 'Living Expenses in Shenzhen'
+              'title': {
+                'text': title,
+                'left':'center'
               },
               'tooltip': {
                 'trigger': 'axis',
