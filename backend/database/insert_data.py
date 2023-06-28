@@ -3,7 +3,7 @@ import json
 
 connection = pymysql.connect(host='localhost',
                              user='vlad',
-                             password='',
+                             password='LetsPass23',
                              database='data_visualizer')
 
 option= {
