@@ -23,9 +23,11 @@ export class RegisterComponent implements OnInit {
     if(this.username!?.length>0 && this.email!?.length>0 && this.password!?.length>0){
       this.authenticationService.register(data).subscribe(r=>this.authenticationService.login(data).subscribe(response=>this.authenticationService.saveUserData(response)))
     }
-    this.snackbar.open("Vă rugăm completați toate câmpurile!","",{
-      duration:3000
-    })
+    else{
+      this.snackbar.open("Există deja un utilizator cu acest e-mail sau nu ați completat toate câmpurile.","",{
+        duration:3000
+      })
+    }
   }
 
 }

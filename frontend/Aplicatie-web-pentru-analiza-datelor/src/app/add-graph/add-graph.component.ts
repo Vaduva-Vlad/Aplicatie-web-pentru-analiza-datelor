@@ -75,7 +75,6 @@ export class AddGraphComponent implements OnInit {
       return true;
     }
     else if(this.selectedGraph=="waterfall" && selectedColumns==3){
-      console.log(selectedColumns)
       return true;
     }
     return false
@@ -142,6 +141,5 @@ export class AddGraphComponent implements OnInit {
 
   updateColumnsList(column:string){
     this.availableColumns[column]=!this.availableColumns[column]
-    console.log(this.availableColumns)
   }
 }

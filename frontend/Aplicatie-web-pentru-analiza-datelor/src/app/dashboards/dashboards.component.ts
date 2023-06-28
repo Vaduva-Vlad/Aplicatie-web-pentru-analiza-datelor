@@ -18,7 +18,6 @@ export class DashboardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDashboards()
-    console.log(localStorage.getItem('user_id'))
   }
 
   getDashboards(){

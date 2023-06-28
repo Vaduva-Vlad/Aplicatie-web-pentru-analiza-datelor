@@ -29,12 +29,12 @@ export class DashboardDetailComponent implements OnInit {
   graphs:Graph[]=[]
 
   ngOnInit(): void {
-    if(this.isAuthenticated())
-      this.getDashboard()
+    this.getDashboard()
   }
   
   isAuthenticated():boolean{
-    return this.authenticationService.isAuthenticated()
+    let current_user=parseInt(localStorage.getItem('user_id')!)
+    return this.authenticationService.isAuthenticated() && current_user==this.dashboard?.user_id
   }
 
   getDashboard(){
