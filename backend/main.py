@@ -74,6 +74,7 @@ async def login(request: Request):
 
 @app.get("/api/graphs/{user_id}/{dashboard_id}")
 def get_graph_for_dashboard(user_id, dashboard_id, authorized=Depends(check_token)):
+    # Verificăm dacă dashboard-ul aparține utilizatorului care a făcut cererea
     belongs = dashboard_belongs_to_user(dashboard_id, user_id)
     if authorized[0] and belongs:
         return get_graph_by_dashboard_id(dashboard_id, user_id)

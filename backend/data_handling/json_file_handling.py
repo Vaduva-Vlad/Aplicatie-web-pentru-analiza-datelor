@@ -4,6 +4,9 @@ import csv
 
 os.chdir(os.path.dirname(__file__))
 
+# Acest script preia datele pentru graficele care folosesc json și le transformă într-un format adecvat.
+# În cazul în care datele sunt malformate, graficul va fi creat gol.
+
 class ProcessJSON:
     def __init__(self, filename):
         self.filename = filename

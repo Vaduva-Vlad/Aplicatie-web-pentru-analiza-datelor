@@ -1,10 +1,10 @@
 import pymysql
 connection = pymysql.connect(host='localhost',
-                             user='vlad',
-                             password='LetsPass23',
+                             user='',
+                             password='',
                              database='data_visualizer')
 
-
+# Script de creare a tabelelor în baza de date
 
 with connection:
     with connection.cursor() as cursor:

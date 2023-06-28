@@ -16,10 +16,12 @@ export class AddDashboardDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Emiterea unui eveniment pentru închiderea formularului
   close(){
     this.closed.emit(false)
   }
 
+  // Adaugă dashboard-ul
   addDashboard(){
     let user_id=localStorage.getItem("user_id")
     let data={"user_id":user_id,"name":this.dashboardName!}

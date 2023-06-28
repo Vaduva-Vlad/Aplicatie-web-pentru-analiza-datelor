@@ -35,6 +35,7 @@ export class AddGraphComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Trecem la următorul pas dacă sursa de date a fost selectată și setăm variabila isThisStepDone înapoi la false
   next(stepper:MatStepper){
     if (this.isDataSourceSelected){
       this.isThisStepDone=true;
@@ -45,6 +46,7 @@ export class AddGraphComponent implements OnInit {
     }
   }
 
+  // Trecem la următorul pas dacă graficul a fost selectat și setăm variabila isThisStepDone înapoi la false
   onGraphSelect(stepper:MatStepper,graphType:string){
     this.isThisStepDone=true;
     setTimeout(()=>{
@@ -59,6 +61,7 @@ export class AddGraphComponent implements OnInit {
     this.isDataSourceSelected=true
   }
 
+  //În cazul in care utilizatorul schimbă sursa de date după ce o selectează o dată.
   resetDataSource(event:any){
     this.isDataSourceSelected=false
     this.selectedFile!=null
@@ -93,9 +96,6 @@ export class AddGraphComponent implements OnInit {
           })
         }) 
       }
-      else if (this.dataSource=="SQL"){
-        
-      }
     }
     else{
       if(this.selectedGraph=="waterfall"){
@@ -111,6 +111,7 @@ export class AddGraphComponent implements OnInit {
     }
   }
 
+  // Citim fișierul și preluăm coloanele.
   parse(){
     if(this.dataSource=="csv"){
       let columns:string[][]=[]

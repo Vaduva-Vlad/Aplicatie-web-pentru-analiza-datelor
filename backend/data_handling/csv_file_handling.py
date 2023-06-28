@@ -3,6 +3,7 @@ import os
 
 os.chdir(os.path.dirname(__file__))
 
+# Acest script preia datele pentru graficele care folosesc csv și le transformă într-un format adecvat.
 
 class ProcessCSV:
     def __init__(self, filename):

@@ -32,6 +32,7 @@ export class DashboardDetailComponent implements OnInit {
     this.getDashboard()
   }
   
+  // Verificăm dacă utilizatorul este autentificat și dacă dashboard-ul îi aparține
   isAuthenticated():boolean{
     let current_user=parseInt(localStorage.getItem('user_id')!)
     return this.authenticationService.isAuthenticated() && current_user==this.dashboard?.user_id
